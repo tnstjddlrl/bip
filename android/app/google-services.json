@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "277507004624",
+    "project_id": "baeshinza-bip-9ca29",
+    "storage_bucket": "baeshinza-bip-9ca29.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:277507004624:android:524c33408d1d000065e6d5",
+        "android_client_info": {
+          "package_name": "com.baeshinza.bip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "277507004624-v8v746c8ve24cuij2aguo1tr6run4vj2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCg0MB_pyBGN2U03OLGjOluktrSBMQ-RsQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "277507004624-v8v746c8ve24cuij2aguo1tr6run4vj2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
