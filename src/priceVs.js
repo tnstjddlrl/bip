@@ -16,32 +16,47 @@ import {
 
 import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
 import AutoHeightImage from 'react-native-auto-height-image';
+import { useNavigation } from '@react-navigation/native';
+
+
+
+import { useRecoilState } from 'recoil';
+import { productName } from '../atom/atoms';
 
 const adUnitId = 'ca-app-pub-8664195159890176/9599301349';
 
+const chwidth = Dimensions.get('screen').width
+
 const PriceVs = () => {
-    const [name, setName] = useState('')
+
+    const navigation = useNavigation()
+
+    const [productN, setProductN] = useRecoilState(productName)
 
 
-    const naver = require('../img/naver_logo.png')
-    const coupang = require('../img/coupang_logo.jpg')
-    const gmarket = require('../img/gmarket_logo.jpg')
+    const naver = require('../img/naver_logo.jpg')
+    const coupang = require('../img/coupang_logo.png')
+    const gmarket = require('../img/gmarket_logo.png')
     const oost = require('../img/oost_logo.png')
-    const auction = require('../img/auction_logo.jpg')
+    const auction = require('../img/auction_logo.png')
+    const interpark = require('../img/interpark_logo.png')
+
 
     return (
-        <View style={{ width: '100%', height: '100%' }}>
+        <View style={{ width: '100%', height: '100%', backgroundColor: '#FFFAFA' }}>
 
             {/* 본문 */}
-            <View style={{ flex: 1 }}>
+            <ScrollView style={{ flex: 1 }}>
 
                 {/* 헤더 시작 */}
-                <View style={{ flexDirection: 'row', marginTop: 10, marginBottom: 10 }}>
-                    <View style={{ width: '20%', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}>B</Text>
-                    </View>
-                    <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20, width: '75%' }}>
-                        <TextInput onChange={(txt) => setName(txt)} value={name}></TextInput>
+                <View style={{ backgroundColor: '#6E6E6E' }}>
+                    <View style={{ flexDirection: 'row', marginTop: 10, marginBottom: 10 }}>
+                        <View style={{ width: '20%', alignItems: 'center' }}>
+                            <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}>B</Text>
+                        </View>
+                        <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20, width: '75%', backgroundColor: '#DCDCDC' }}>
+                            <TextInput onChange={(txt) => setProductN(txt)} value={productN}></TextInput>
+                        </View>
                     </View>
                 </View>
 
@@ -51,42 +66,76 @@ const PriceVs = () => {
                 {/* 가격 비교 버튼 시작 */}
                 <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%' }}>
 
-                    <View style={{ marginTop: 60 }}></View>
+                    <View style={{ marginTop: 40 }}></View>
 
-                    <TouchableWithoutFeedback onPress={() => { }}>
-                        <View style={{ width: '70%', height: 50, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', borderWidth: 0.5, borderRadius: 10, marginBottom: 30 }}>
-                            <AutoHeightImage source={naver} width={70}></AutoHeightImage>
-                            <Text>가격비교</Text>
-                        </View>
-                    </TouchableWithoutFeedback>
+                    {/* 한줄 */}
+                    <View style={{ width: '90%', flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20 }}>
+                        <TouchableWithoutFeedback onPress={() => { navigation.navigate('웹뷰') }}>
+                            <View style={{ alignItems: 'center' }}>
+                                <View style={{ borderWidth: 1, borderRadius: 20, borderColor: 'gray' }}>
+                                    <AutoHeightImage style={{ borderRadius: 20, margin: 0.1 }} source={naver} width={chwidth / 2 - 80}></AutoHeightImage>
+                                </View>
+                                <Text style={{ marginTop: 10 }}>네이버</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
 
-                    <TouchableWithoutFeedback onPress={() => { }}>
-                        <View style={{ width: '70%', height: 50, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', borderWidth: 0.5, borderRadius: 10, marginBottom: 30 }}>
-                            <AutoHeightImage source={coupang} width={70}></AutoHeightImage>
-                            <Text>가격비교</Text>
-                        </View>
-                    </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback onPress={() => { }}>
+                            <View style={{ alignItems: 'center' }}>
+                                <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20 }}>
+                                    {/* <AutoHeightImage style={{ borderRadius: 20, margin: 0.1 }} source={coupang} width={chwidth / 2 - 80}></AutoHeightImage> */}
+                                    <Image style={{ borderRadius: 20, margin: 0.1, width: chwidth / 2 - 80, height: chwidth / 2 - 80 }} source={coupang}></Image>
+                                </View>
+                                <Text style={{ marginTop: 10 }}>쿠팡</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </View>
 
-                    <TouchableWithoutFeedback onPress={() => { }}>
-                        <View style={{ width: '70%', height: 50, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', borderWidth: 0.5, borderRadius: 10, marginBottom: 30 }}>
-                            <AutoHeightImage source={gmarket} width={70}></AutoHeightImage>
-                            <Text>가격비교</Text>
-                        </View>
-                    </TouchableWithoutFeedback>
+                    {/* 한줄 */}
+                    <View style={{ width: '90%', flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20 }}>
+                        <TouchableWithoutFeedback onPress={() => { }}>
+                            <View style={{ alignItems: 'center' }}>
+                                <View style={{ borderWidth: 1, borderRadius: 20, borderColor: 'gray' }}>
+                                    <AutoHeightImage style={{ borderRadius: 20, margin: 0.1, backgroundColor: 'white' }} source={gmarket} width={chwidth / 2 - 80}></AutoHeightImage>
+                                </View>
+                                <Text style={{ marginTop: 10 }}>지마켓</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
 
-                    <TouchableWithoutFeedback onPress={() => { }}>
-                        <View style={{ width: '70%', height: 50, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', borderWidth: 0.5, borderRadius: 10, marginBottom: 30 }}>
-                            <AutoHeightImage source={oost} width={70}></AutoHeightImage>
-                            <Text>가격비교</Text>
-                        </View>
-                    </TouchableWithoutFeedback>
+                        <TouchableWithoutFeedback onPress={() => { }}>
+                            <View style={{ alignItems: 'center' }}>
+                                <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20 }}>
+                                    <Image style={{ borderRadius: 20, margin: 0.1, width: chwidth / 2 - 80, height: chwidth / 2 - 80 }} source={auction}></Image>
+                                </View>
+                                <Text style={{ marginTop: 10 }}>옥션</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </View>
 
-                    <TouchableWithoutFeedback onPress={() => { }}>
-                        <View style={{ width: '70%', height: 50, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', borderWidth: 0.5, borderRadius: 10, marginBottom: 30 }}>
-                            <AutoHeightImage source={auction} width={70}></AutoHeightImage>
-                            <Text>가격비교</Text>
-                        </View>
-                    </TouchableWithoutFeedback>
+                    {/* 한줄 */}
+                    <View style={{ width: '90%', flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20 }}>
+                        <TouchableWithoutFeedback onPress={() => { }}>
+                            <View style={{ alignItems: 'center' }}>
+                                <View style={{ borderWidth: 1, borderRadius: 20, borderColor: 'gray' }}>
+                                    <AutoHeightImage style={{ borderRadius: 20, margin: 0.1, backgroundColor: 'white' }} source={oost} width={chwidth / 2 - 80}></AutoHeightImage>
+                                </View>
+                                <Text style={{ marginTop: 10 }}>11번가</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+
+                        <TouchableWithoutFeedback onPress={() => { }}>
+                            <View style={{ alignItems: 'center' }}>
+                                <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20 }}>
+                                    <Image style={{ borderRadius: 20, margin: 0.1, width: chwidth / 2 - 80, height: chwidth / 2 - 80 }} source={interpark}></Image>
+                                </View>
+                                <Text style={{ marginTop: 10 }}>인터파크</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </View>
+
+
+
+
+
 
 
                 </View>
@@ -96,7 +145,7 @@ const PriceVs = () => {
                 {/* 가격 비교 버튼 끝 */}
 
 
-            </View>
+            </ScrollView>
             {/* 본문 끝 */}
 
 
