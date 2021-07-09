@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
     SafeAreaView,
     ScrollView,
@@ -17,6 +17,8 @@ import {
 import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { useNavigation } from '@react-navigation/native';
+import { useRecoilState } from 'recoil';
+import { productName } from '../atom/atoms';
 
 
 const adUnitId = 'ca-app-pub-8664195159890176/9599301349';
@@ -28,6 +30,13 @@ const PriceVs = () => {
     const navigation = useNavigation()
 
     const [name, setName] = useState('')
+
+    const [productN, setProductN] = useRecoilState(productName)
+
+    useEffect(() => {
+        console.log('넘어온 값 : ' + productN)
+        setName(productN)
+    }, [productN])
 
 
 

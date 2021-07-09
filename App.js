@@ -13,12 +13,7 @@ import {
 
 import {
   RecoilRoot,
-  atom,
-  selector,
-  useRecoilState,
-  useRecoilValue,
 } from 'recoil';
-
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -28,7 +23,6 @@ import PriceVs from './src/priceVs';
 import Wb from './src/wb';
 
 const Stack = createStackNavigator();
-
 
 export default APP = () => {
   return (
@@ -41,6 +35,7 @@ export default APP = () => {
         </Stack.Navigator>
       </NavigationContainer>
     </RecoilRoot>
+
   )
 }
 

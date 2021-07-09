@@ -17,6 +17,8 @@ import {
 import { RNCamera } from 'react-native-camera';
 import BarcodeMask from 'react-native-barcode-mask';
 import { useNavigation } from '@react-navigation/native';
+import { useRecoilState } from 'recoil';
+import { productName } from '../atom/atoms';
 
 const chwidth = Dimensions.get('screen').width
 const chheight = Dimensions.get('screen').height
@@ -29,6 +31,10 @@ const BarcodeCheck = () => {
     const camera = useRef()
     const [barcc, setBarcc] = useState('바코드 탐지중!')
     const [product, setproduct] = useState('')
+
+    const [productN, setProductN] = useRecoilState(productName)
+
+
 
     function barcodeCheck(pp) {
         // 8809482500662
@@ -50,37 +56,68 @@ const BarcodeCheck = () => {
 
     return (
         <View style={{ flex: 1 }}>
-            <RNCamera
-                ref={camera}
-                style={{ width: chwidth, height: chheight - 200, alignSelf: "center" }}
-                type={RNCamera.Constants.Type.back}
-                flashMode={RNCamera.Constants.FlashMode.auto}
-                androidCameraPermissionOptions={{
-                    title: '카메라 사용 권한',
-                    message: '카메라 사용 권한 허용이 필요합니다.',
-                    buttonPositive: '확인',
-                    buttonNegative: '거절',
-                }}
 
-                onBarCodeRead={(data) => {
-                    setTimeout(() => {
-                        setBarcc(data.data)
-                        barcodeCheck(data.data)
-                    }, 500);
-                }}>
-                <BarcodeMask
-                    width={'80%'} height={'50%'} showAnimatedLine={true} outerMaskOpacity={0.8}
-                />
+            <View style={{ width: '100%', height: '92%' }}>
 
-            </RNCamera>
+                <RNCamera
+                    ref={camera}
+                    style={{ width: chwidth, height: chheight - 200, alignSelf: "center" }}
+                    type={RNCamera.Constants.Type.back}
+                    flashMode={RNCamera.Constants.FlashMode.auto}
+                    androidCameraPermissionOptions={{
+                        title: '카메라 사용 권한',
+                        message: '카메라 사용 권한 허용이 필요합니다.',
+                        buttonPositive: '확인',
+                        buttonNegative: '거절',
+                    }}
 
-            <Text>{barcc}</Text>
-            <Text>{product}</Text>
-            <TouchableWithoutFeedback onPress={() => { navigation.navigate('가격비교'), console.log('클릭') }}>
-                <View style={{ position: 'absolute' }}>
-                    <Text style={{ color: 'orange' }}>직접입력</Text>
-                </View>
-            </TouchableWithoutFeedback>
+                    onBarCodeRead={(data) => {
+                        setTimeout(() => {
+                            setBarcc(data.data)
+                            barcodeCheck(data.data)
+                        }, 500);
+                    }}>
+                    <BarcodeMask
+                        width={'80%'} height={'50%'} showAnimatedLine={true} outerMaskOpacity={0.8}
+                    />
+
+                </RNCamera>
+
+                <Text>{barcc}</Text>
+
+                <Text>{product}</Text>
+
+
+
+
+
+                <TouchableWithoutFeedback onPress={() => { navigation.navigate('가격비교'), console.log('클릭') }}>
+                    <View style={{ position: 'absolute' }}>
+                        <Text style={{ color: 'orange', margin: 10, fontSize: 18 }}>직접입력</Text>
+                    </View>
+                </TouchableWithoutFeedback>
+
+                <TouchableWithoutFeedback onPress={() => { navigation.navigate('가격비교'), console.log('클릭') }}>
+                    <View style={{ position: 'absolute', alignSelf: 'flex-end' }}>
+                        <Text style={{ color: 'orange', margin: 10, fontSize: 18 }}>찜 목록</Text>
+                    </View>
+                </TouchableWithoutFeedback>
+
+            </View>
+
+
+            <View style={{ width: '100%', height: '8%' }}>
+
+                <TouchableWithoutFeedback onPress={() => { setProductN(product), navigation.navigate('가격비교') }}>
+                    <View style={{ width: '100%', height: '100%', backgroundColor: product === '' ? 'gray' : 'orange', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ color: product === '' ? 'black' : 'white' }}>최저가 비교</Text>
+                    </View>
+                </TouchableWithoutFeedback>
+
+            </View>
+
+
+
         </View>
     )
 }
