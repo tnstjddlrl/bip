@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 const cheerio = require('cheerio');
 import {
     SafeAreaView,
@@ -47,7 +47,6 @@ const BarcodeCheck = () => {
             console.log(error);
         })
     }
-
 
     return (
         <View style={{ flex: 1 }}>

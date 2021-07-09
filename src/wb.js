@@ -1,4 +1,5 @@
 import React, { Component, useEffect } from 'react';
+import { useState } from 'react';
 import {
     SafeAreaView,
     ScrollView,
@@ -21,9 +22,12 @@ import { productName } from '../atom/atoms';
 var rnw
 var cbc = false;
 
+
 const Wb = () => {
 
-    const [productN, setProductN] = useRecoilState(productName)
+    var uri = 'https://msearch.shopping.naver.com/search/all?query=' + productN
+
+    const [key, setKey] = useState(1)
 
     useEffect(() => {
         const backHandler = BackHandler.addEventListener(
@@ -38,15 +42,19 @@ const Wb = () => {
         return () => backHandler.remove();
     }, []);
 
+    console.log('넘어온 값 : ' + productN)
+
     useEffect(() => {
-        console.log(rnw)
-    }, [rnw])
+        setKey((k) => k + 1)
+        console.log(key)
+    }, [productN])
 
     return (
         <View style={{ flex: 1 }}>
             <WebView
+                key={key}
                 ref={wb => { rnw = wb }}
-                source={{ uri: 'https://msearch.shopping.naver.com/search/all?query=' + productN }}
+                source={{ uri: uri }}
                 style={{ width: '100%', height: '90%' }}
                 onNavigationStateChange={(navState) => { cbc = navState.canGoBack; }}
             />

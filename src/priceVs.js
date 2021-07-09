@@ -11,17 +11,13 @@ import {
     Alert,
     TextInput,
     Image,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
 } from 'react-native';
 
 import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { useNavigation } from '@react-navigation/native';
 
-
-
-import { useRecoilState } from 'recoil';
-import { productName } from '../atom/atoms';
 
 const adUnitId = 'ca-app-pub-8664195159890176/9599301349';
 
@@ -31,7 +27,8 @@ const PriceVs = () => {
 
     const navigation = useNavigation()
 
-    const [productN, setProductN] = useRecoilState(productName)
+    const [name, setName] = useState('')
+
 
 
     const naver = require('../img/naver_logo.jpg')
@@ -55,7 +52,7 @@ const PriceVs = () => {
                             <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}>B</Text>
                         </View>
                         <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20, width: '75%', backgroundColor: '#DCDCDC' }}>
-                            <TextInput onChange={(txt) => setProductN(txt)} value={productN}></TextInput>
+                            <TextInput onChange={(txt) => { setName(txt) }} value={name}></TextInput>
                         </View>
                     </View>
                 </View>
