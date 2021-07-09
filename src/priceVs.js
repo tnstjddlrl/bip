@@ -21,31 +21,42 @@ import { useRecoilState } from 'recoil';
 import { productName } from '../atom/atoms';
 
 
+
 const adUnitId = 'ca-app-pub-8664195159890176/9599301349';
 
 const chwidth = Dimensions.get('screen').width
 
-const PriceVs = () => {
+const naver = require('../img/naver_logo.jpg')
+const coupang = require('../img/coupang_logo.png')
+const gmarket = require('../img/gmarket_logo.png')
+const oost = require('../img/oost_logo.png')
+const auction = require('../img/auction_logo.png')
+const interpark = require('../img/interpark_logo.png')
+
+
+const PriceVs = ({ route }) => {
+    const { pname } = route.params
+
+    const tip = useRef()
+
 
     const navigation = useNavigation()
 
     const [name, setName] = useState('')
 
-    const [productN, setProductN] = useRecoilState(productName)
 
     useEffect(() => {
-        console.log('넘어온 값 : ' + productN)
-        setName(productN)
-    }, [productN])
+        const unsubscribe = navigation.addListener('focus', () => {
+            console.log('넘어온 값 : ' + pname)
+            setName(pname)
 
+            if (pname === '') {
+                tip.current.focus()
+            }
+        });
 
-
-    const naver = require('../img/naver_logo.jpg')
-    const coupang = require('../img/coupang_logo.png')
-    const gmarket = require('../img/gmarket_logo.png')
-    const oost = require('../img/oost_logo.png')
-    const auction = require('../img/auction_logo.png')
-    const interpark = require('../img/interpark_logo.png')
+        return unsubscribe;
+    }, [navigation]);
 
 
     return (
@@ -61,7 +72,7 @@ const PriceVs = () => {
                             <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}>B</Text>
                         </View>
                         <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20, width: '75%', backgroundColor: '#DCDCDC' }}>
-                            <TextInput onChange={(txt) => { setName(txt) }} value={name}></TextInput>
+                            <TextInput ref={tip} style={{ color: 'black', marginLeft: 10 }} placeholder={'직접 입력해주세요.'} onChangeText={(txt) => { setName(txt), console.log(txt) }} value={name}></TextInput>
                         </View>
                     </View>
                 </View>
@@ -76,7 +87,7 @@ const PriceVs = () => {
 
                     {/* 한줄 */}
                     <View style={{ width: '90%', flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20 }}>
-                        <TouchableWithoutFeedback onPress={() => { navigation.navigate('웹뷰') }}>
+                        <TouchableWithoutFeedback onPress={() => { navigation.navigate('웹뷰', { pname: name }) }}>
                             <View style={{ alignItems: 'center' }}>
                                 <View style={{ borderWidth: 1, borderRadius: 20, borderColor: 'gray' }}>
                                     <AutoHeightImage style={{ borderRadius: 20, margin: 0.1 }} source={naver} width={chwidth / 2 - 80}></AutoHeightImage>

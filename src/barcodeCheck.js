@@ -32,8 +32,6 @@ const BarcodeCheck = () => {
     const [barcc, setBarcc] = useState('바코드 탐지중!')
     const [product, setproduct] = useState('')
 
-    const [productN, setProductN] = useRecoilState(productName)
-
 
 
     function barcodeCheck(pp) {
@@ -75,7 +73,7 @@ const BarcodeCheck = () => {
                         setTimeout(() => {
                             setBarcc(data.data)
                             barcodeCheck(data.data)
-                        }, 500);
+                        }, 1000);
                     }}>
                     <BarcodeMask
                         width={'80%'} height={'50%'} showAnimatedLine={true} outerMaskOpacity={0.8}
@@ -91,13 +89,13 @@ const BarcodeCheck = () => {
 
 
 
-                <TouchableWithoutFeedback onPress={() => { navigation.navigate('가격비교'), console.log('클릭') }}>
+                <TouchableWithoutFeedback onPress={() => { navigation.navigate('가격비교', { pname: '' }) }}>
                     <View style={{ position: 'absolute' }}>
                         <Text style={{ color: 'orange', margin: 10, fontSize: 18 }}>직접입력</Text>
                     </View>
                 </TouchableWithoutFeedback>
 
-                <TouchableWithoutFeedback onPress={() => { navigation.navigate('가격비교'), console.log('클릭') }}>
+                <TouchableWithoutFeedback onPress={() => { }}>
                     <View style={{ position: 'absolute', alignSelf: 'flex-end' }}>
                         <Text style={{ color: 'orange', margin: 10, fontSize: 18 }}>찜 목록</Text>
                     </View>
@@ -108,9 +106,9 @@ const BarcodeCheck = () => {
 
             <View style={{ width: '100%', height: '8%' }}>
 
-                <TouchableWithoutFeedback onPress={() => { setProductN(product), navigation.navigate('가격비교') }}>
+                <TouchableWithoutFeedback onPress={() => { if (product != '') navigation.navigate('가격비교', { pname: product }) }}>
                     <View style={{ width: '100%', height: '100%', backgroundColor: product === '' ? 'gray' : 'orange', alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ color: product === '' ? 'black' : 'white' }}>최저가 비교</Text>
+                        <Text style={{ color: product === '' ? 'black' : 'white', fontSize: 18 }}>최저가 비교</Text>
                     </View>
                 </TouchableWithoutFeedback>
 

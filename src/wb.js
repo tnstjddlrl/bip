@@ -20,20 +20,25 @@ import { WebView } from 'react-native-webview';
 
 import { useRecoilState } from 'recoil';
 import { productName } from '../atom/atoms';
+import { useNavigation } from '@react-navigation/native';
 
 
 var rnw
 var cbc = false;
 
-const chwidth = Dimensions.get('screen').width
+const chwidth = Dimensions.get('window').width
+const w33 = chwidth / 3
 
+const Wb = ({ route }) => {
+    const navigation = useNavigation()
 
-const Wb = () => {
+    const { pname } = route.params
+
+    console.log('뭐지? ' + JSON.stringify(pname))
+
     const barcodeimg = require('../img/barcode_img.png')
 
-    const [productN, setProductN] = useRecoilState(productName)
-
-    var uri = 'https://msearch.shopping.naver.com/search/all?query=' + productN
+    var uri = 'https://msearch.shopping.naver.com/search/all?query=' + pname
 
     const [key, setKey] = useState(1)
 
@@ -44,18 +49,23 @@ const Wb = () => {
                 if (cbc && rnw) {
                     rnw.goBack();
                     return true;
+                } else {
+                    navigation.navigate('가격비교', { pname: pname })
+                    console.log('확인')
+                    return true;
                 }
             }
         );
         return () => backHandler.remove();
     }, []);
 
-    console.log('넘어온 값 : ' + productN)
-
     useEffect(() => {
-        setKey((k) => k + 1)
-        console.log(key)
-    }, [productN])
+        const unsubscribe = navigation.addListener('focus', () => {
+            setKey((k) => k + 1)
+        });
+
+        return unsubscribe;
+    }, [navigation]);
 
     return (
         <View style={{ flex: 1 }}>
@@ -67,22 +77,22 @@ const Wb = () => {
                 onNavigationStateChange={(navState) => { cbc = navState.canGoBack; }}
             />
             <View style={{ width: '100%', height: '10%', backgroundColor: 'white', flexDirection: 'row' }}>
-                <TouchableWithoutFeedback>
-                    <View style={{ width: '33%', height: '100%', backgroundColor: 'yellow', justifyContent: 'center', alignItems: 'center' }}>
-                        <Text>뒤로가기</Text>
+                <TouchableWithoutFeedback onPress={() => { navigation.goBack() }}>
+                    <View style={{ width: w33, height: '100%', backgroundColor: 'rgb(125,138,168)', justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ color: 'white' }}>뒤로가기</Text>
                     </View>
                 </TouchableWithoutFeedback>
 
-                <TouchableWithoutFeedback>
-                    <View style={{ width: '33%', height: '100%', backgroundColor: 'gray', justifyContent: 'center', alignItems: 'center' }}>
-                        {/* <AutoHeightImage></AutoHeightImage> */}
-                        <Text>바코드화면</Text>
+                <TouchableWithoutFeedback onPress={() => { navigation.navigate('바코드체크') }}>
+                    <View style={{ width: w33, height: '100%', backgroundColor: 'white', justifyContent: 'center', alignItems: 'center' }}>
+                        {/* <AutoHeightImage source={barcodeimg} width={w33 - 80}></AutoHeightImage> */}
+                        <Text style={{ marginTop: 5 }}>바코드화면</Text>
                     </View>
                 </TouchableWithoutFeedback>
 
-                <TouchableWithoutFeedback>
-                    <View style={{ width: '33%', height: '100%', backgroundColor: 'skyblue', justifyContent: 'center', alignItems: 'center' }}>
-                        <Text>찜해두기</Text>
+                <TouchableWithoutFeedback onPress={() => { }}>
+                    <View style={{ width: w33, height: '100%', backgroundColor: 'rgb(255,150,0)', justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ color: 'white' }}>찜해두기</Text>
                     </View>
                 </TouchableWithoutFeedback>
 
