@@ -11,3 +11,8 @@ export const productList = atom({
     key: 'productList',
     default: [],
 });
+
+export const productImg = atom({
+    key: 'productImg',
+    default: '',
+});

@@ -18,7 +18,7 @@ import { RNCamera } from 'react-native-camera';
 import BarcodeMask from 'react-native-barcode-mask';
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilState } from 'recoil';
-import { productName } from '../atom/atoms';
+import { productImg, productName } from '../atom/atoms';
 
 const chwidth = Dimensions.get('screen').width
 const chheight = Dimensions.get('screen').height
@@ -32,6 +32,8 @@ const BarcodeCheck = () => {
     const [barcc, setBarcc] = useState('바코드 탐지중!')
     const [product, setproduct] = useState('')
 
+    const [atomImg, setAtomImg] = useRecoilState(productImg)
+
 
 
     function barcodeCheck(pp) {
@@ -43,8 +45,11 @@ const BarcodeCheck = () => {
 
             var test = $('div.productDetailView').find('div.productTit').text().replace(/(\s*)/g, "");
 
+
+            // console.log($('div.productDetailView').find('div.imgArea').find('img').attr('src'))
             console.log(test.substring(13, test.length))
             setproduct(test.substring(13, test.length))
+            setAtomImg($('div.productDetailView').find('div.imgArea').find('img').attr('src'))
 
         }).catch(function (error) {
             Alert.alert('인터넷 연결을 확인하세요!')

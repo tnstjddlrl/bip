@@ -18,7 +18,7 @@ import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilState } from 'recoil';
-import { productName } from '../atom/atoms';
+import { productImg, productName } from '../atom/atoms';
 
 
 
@@ -44,11 +44,17 @@ const PriceVs = ({ route }) => {
 
     const [name, setName] = useState('')
 
+    const [atomImg, setAtomImg] = useRecoilState(productImg)
+
+
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
             console.log('넘어온 값 : ' + pname)
             setName(pname)
+
+            console.log(atomImg)
+
 
             if (pname === '') {
                 tip.current.focus()
