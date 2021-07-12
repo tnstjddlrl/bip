@@ -50,8 +50,9 @@ const Wb = ({ route }) => {
                     rnw.goBack();
                     return true;
                 } else {
-                    navigation.navigate('가격비교', { pname: pname })
-                    console.log('확인')
+                    console.log('확인' + pname)
+                    var pp = pname
+                    navigation.navigate('가격비교', { pname: pp })
                     return true;
                 }
             }
@@ -77,7 +78,7 @@ const Wb = ({ route }) => {
                 onNavigationStateChange={(navState) => { cbc = navState.canGoBack; }}
             />
             <View style={{ width: '100%', height: '10%', backgroundColor: 'white', flexDirection: 'row' }}>
-                <TouchableWithoutFeedback onPress={() => { navigation.goBack() }}>
+                <TouchableWithoutFeedback onPress={() => { navigation.navigate('가격비교', { pname: pname }) }}>
                     <View style={{ width: w33, height: '100%', backgroundColor: 'rgb(125,138,168)', justifyContent: 'center', alignItems: 'center' }}>
                         <Text style={{ color: 'white' }}>뒤로가기</Text>
                     </View>
