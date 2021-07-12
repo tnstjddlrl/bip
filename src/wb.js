@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
-import AutoHeightImage from 'react-native-auto-height-image';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import { WebView } from 'react-native-webview';
 
@@ -29,7 +29,7 @@ var cbc = false;
 const chwidth = Dimensions.get('window').width
 const w33 = chwidth / 3
 
-const Wb = ({ route }) => {
+const Wb = () => {
     const navigation = useNavigation()
 
     const [productN, setProductN] = useRecoilState(productName)
@@ -63,33 +63,40 @@ const Wb = ({ route }) => {
     }, [navigation]);
 
     return (
-        <View style={{ flex: 1 }}>
-            <WebView
-                key={key}
-                ref={wb => { rnw = wb }}
-                source={{ uri: uri }}
-                style={{ width: '100%', height: '90%' }}
-                onNavigationStateChange={(navState) => { cbc = navState.canGoBack; }}
-            />
-            <View style={{ width: '100%', height: '10%', backgroundColor: 'white', flexDirection: 'row' }}>
-                <TouchableWithoutFeedback onPress={() => { navigation.navigate('가격비교') }}>
-                    <View style={{ width: w33, height: '100%', backgroundColor: 'rgb(125,138,168)', justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ color: 'white' }}>뒤로가기</Text>
-                    </View>
-                </TouchableWithoutFeedback>
+        <View style={{ width: '100%', height: '100%' }}>
+            <View style={{ width: '100%', height: '92%' }}>
+                <WebView
+                    key={key}
+                    ref={wb => { rnw = wb }}
+                    source={{ uri: uri }}
+                    style={{ width: '100%', height: '100%' }}
+                    onNavigationStateChange={(navState) => { cbc = navState.canGoBack; }}
+                />
+            </View>
+            <View style={{ width: '100%', height: '8%', backgroundColor: '#ffe6b3', justifyContent: 'center', alignItems: 'center' }}>
 
-                <TouchableWithoutFeedback onPress={() => { navigation.navigate('바코드체크') }}>
-                    <View style={{ width: w33, height: '100%', backgroundColor: 'white', justifyContent: 'center', alignItems: 'center' }}>
-                        {/* <AutoHeightImage source={barcodeimg} width={w33 - 80}></AutoHeightImage> */}
-                        <Text style={{ marginTop: 5 }}>바코드화면</Text>
+                <View style={{ width: '90%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
+                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <Text><Icon style={{ fontSize: 30 }} name="barcode-sharp" color="black"></Icon></Text>
+                        <Text>바코드</Text>
                     </View>
-                </TouchableWithoutFeedback>
 
-                <TouchableWithoutFeedback onPress={() => { }}>
-                    <View style={{ width: w33, height: '100%', backgroundColor: 'rgb(255,150,0)', justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ color: 'white' }}>찜해두기</Text>
+                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <Text><Icon style={{ fontSize: 30 }} name="pricetags-outline" color="black"></Icon></Text>
+                        <Text>가격비교</Text>
                     </View>
-                </TouchableWithoutFeedback>
+
+                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <Text><Icon style={{ fontSize: 30 }} name="basket-outline" color="black"></Icon></Text>
+                        <Text>찜목록</Text>
+                    </View>
+
+                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                        <Text><Icon style={{ fontSize: 30 }} name="grid-outline" color="black"></Icon></Text>
+                        <Text>더보기</Text>
+                    </View>
+                </View>
+
 
             </View>
         </View>
