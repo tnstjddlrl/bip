@@ -44,6 +44,8 @@ const BarcodeCheck = () => {
 
     function barcodeCheck(pp) {
 
+        var regex = /[a-z0-9]|[\[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
+
         axios.get('http://www.koreannet.or.kr/home/hpisSrchGtin.gs1?gtin=' + pp,
         ).then(function (response) {
 
@@ -51,12 +53,32 @@ const BarcodeCheck = () => {
 
             // console.log($('div.productDetailView').find('div.productTit').text().indexOf(pp))
 
-            var test = $('div.productDetailView').find('div.productTit').text().replace(/(\s*)/g, "");
+            var test = $('div.productDetailView').find('div.productTit').text();
+
+            var arr = test.trim().substring(13, test.length).trim().split(' ')
+            var target = arr.indexOf($('div.productDetailView').find('dd.productDetail').find('dl').find('dd:nth-of-type(2)').text())
+
+            console.log('회사명 불러오기' + $('div.productDetailView').find('dd.productDetail').find('dl').find('dd:nth-of-type(2)').text())
 
 
-            // console.log($('div.productDetailView').find('div.imgArea').find('img').attr('src'))
-            setProductN(test.substring(13, test.length))
+            // console.log(test.substring(25, test.length).split(' '))
             setAtomImg($('div.productDetailView').find('div.imgArea').find('img').attr('src'))
+
+
+            if (arr.indexOf($('div.productDetailView').find('dd.productDetail').find('dl').find('dd:nth-of-type(2)').text()) < 0) {
+                //회사명 미포함
+                console.log('회사명 미포함')
+
+                setProductN(arr.join(' ').replace(regex, ''))
+            } else {
+                //회사명 포함
+                console.log('회사명 포함 : ' + target)
+
+                arr.splice(arr.indexOf($('div.productDetailView').find('dd.productDetail').find('dl').find('dd:nth-of-type(2)').text()), 1)
+                // arr.splice(arr.length - 1, 1, arr[arr.length - 1].replace(/ /g, ""))
+
+                setProductN(arr.join(' ').replace(regex, ''))
+            }
 
         }).catch(function (error) {
             Alert.alert('인터넷 연결을 확인하세요!')
@@ -106,7 +128,7 @@ const BarcodeCheck = () => {
                             </View>
                             :
                             <View style={{ width: chwidth - 40, marginLeft: 20, alignItems: 'center', flexDirection: 'row' }}>
-                                <Text><Icon style={{ fontSize: 45 }} name="basket-sharp" color="black" /></Text><Text>  :   상품 검색중!</Text>
+                                <Text><Icon style={{ fontSize: 45 }} name="basket-sharp" color="gray" /></Text><Text>  :   상품 검색중!</Text>
                             </View>
                         }
                     </View>
