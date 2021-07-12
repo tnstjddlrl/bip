@@ -20,6 +20,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useRecoilState } from 'recoil';
 import { productImg, productName } from '../atom/atoms';
 
+import Icon from 'react-native-vector-icons/Ionicons';
 
 
 const adUnitId = 'ca-app-pub-8664195159890176/9599301349';
@@ -34,8 +35,7 @@ const auction = require('../img/auction_logo.png')
 const interpark = require('../img/interpark_logo.png')
 
 
-const PriceVs = ({ route }) => {
-    const { pname } = route.params
+const PriceVs = () => {
 
     const tip = useRef()
 
@@ -45,18 +45,18 @@ const PriceVs = ({ route }) => {
     const [name, setName] = useState('')
 
     const [atomImg, setAtomImg] = useRecoilState(productImg)
-
+    const [productN, setProductN] = useRecoilState(productName)
 
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
-            console.log('넘어온 값 : ' + pname)
-            setName(pname)
+            console.log('넘어온 값 : ' + productN)
+            // setName((ex) => productN)
 
             console.log(atomImg)
 
 
-            if (pname === '') {
+            if (productN === '') {
                 tip.current.focus()
             }
         });
@@ -78,7 +78,7 @@ const PriceVs = ({ route }) => {
                             <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}>B</Text>
                         </View>
                         <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20, width: '75%', backgroundColor: '#DCDCDC' }}>
-                            <TextInput ref={tip} style={{ color: 'black', marginLeft: 10 }} placeholder={'직접 입력해주세요.'} onChangeText={(txt) => { setName(txt), console.log(txt) }} value={name}></TextInput>
+                            <TextInput ref={tip} style={{ color: 'black', marginLeft: 10 }} placeholder={'직접 입력해주세요.'} onChangeText={(txt) => { setName(txt), setProductN(txt), console.log(txt) }} value={name}></TextInput>
                         </View>
                     </View>
                 </View>
@@ -93,7 +93,7 @@ const PriceVs = ({ route }) => {
 
                     {/* 한줄 */}
                     <View style={{ width: '90%', flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20 }}>
-                        <TouchableWithoutFeedback onPress={() => { navigation.navigate('웹뷰', { pname: name }) }}>
+                        <TouchableWithoutFeedback onPress={() => { setName((ex) => productN), navigation.navigate('웹뷰') }}>
                             <View style={{ alignItems: 'center' }}>
                                 <View style={{ borderWidth: 1, borderRadius: 20, borderColor: 'gray' }}>
                                     <AutoHeightImage style={{ borderRadius: 20, margin: 0.1 }} source={naver} width={chwidth / 2 - 80}></AutoHeightImage>
