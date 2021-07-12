@@ -10,57 +10,21 @@ import {
     View,
     Dimensions,
     BackHandler,
-    Alert, TouchableWithoutFeedback
-
+    Alert,
+    TouchableWithoutFeedback
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-
-import { WebView } from 'react-native-webview';
 
 import { useRecoilState } from 'recoil';
 import { productName } from '../atom/atoms';
 import { useNavigation } from '@react-navigation/native';
 
 
-var rnw
-var cbc = false;
-
 const chwidth = Dimensions.get('window').width
-const w33 = chwidth / 3
 
-const Wb = () => {
+const Plusview = () => {
     const navigation = useNavigation()
-
-    const [productN, setProductN] = useRecoilState(productName)
-
-
-    const barcodeimg = require('../img/barcode_img.png')
-
-    var uri = 'https://msearch.shopping.naver.com/search/all?query=' + productN
-
-    const [key, setKey] = useState(1)
-
-    useEffect(() => {
-        const backHandler = BackHandler.addEventListener(
-            "hwbp",
-            function () {
-                if (cbc && rnw) {
-                    rnw.goBack();
-                    return true;
-                }
-            }
-        );
-        return () => backHandler.remove();
-    }, []);
-
-    useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
-            setKey((k) => k + 1)
-        });
-
-        return unsubscribe;
-    }, [navigation]);
 
     return (
         <View style={{ width: '100%', height: '100%' }}>
@@ -87,39 +51,31 @@ const Wb = () => {
 
             {/* 헤더 끝 */}
 
-
-
             <View style={{ width: '100%', height: '84%' }}>
-                <WebView
-                    key={key}
-                    ref={wb => { rnw = wb }}
-                    source={{ uri: uri }}
-                    style={{ width: '100%', height: '100%' }}
-                    onNavigationStateChange={(navState) => { cbc = navState.canGoBack; }}
-                />
+
             </View>
 
             {/* 하단바 시작 */}
-            <View style={{ width: '100%', height: '8%', backgroundColor: '#ffe6b3', justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ width: '100%', height: '9%', backgroundColor: '#ffe6b3', justifyContent: 'center', alignItems: 'center' }}>
 
                 <View style={{ width: '90%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
 
                     <TouchableWithoutFeedback onPress={() => navigation.navigate('바코드체크')}>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <Text><Icon style={{ fontSize: 30, color: '#e64d00' }} name="barcode-sharp" color="black"></Icon></Text>
-                            <Text style={{ color: '#e64d00' }}>바코드</Text>
+                            <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="barcode-sharp" color="black"></Icon></Text>
+                            <Text style={{ color: '#e69900' }}>바코드</Text>
                         </View>
                     </TouchableWithoutFeedback>
 
                     <TouchableWithoutFeedback onPress={() => navigation.navigate('가격비교')}>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <Text><Icon style={{ fontSize: 30, color: '#e64d00' }} name="pricetags-outline" color="black"></Icon></Text>
-                            <Text style={{ color: '#e64d00' }}>가격비교</Text>
+                            <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="pricetags-outline" color="black"></Icon></Text>
+                            <Text style={{ color: '#e69900' }}>가격비교</Text>
                         </View>
                     </TouchableWithoutFeedback>
 
 
-                    <TouchableWithoutFeedback onPress={() => navigation.navigate('찜목록')}>
+                    <TouchableWithoutFeedback onPress={() => { }}>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                             <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="basket-outline" color="black"></Icon></Text>
                             <Text style={{ color: '#e69900' }}>찜목록</Text>
@@ -129,20 +85,18 @@ const Wb = () => {
 
                     <TouchableWithoutFeedback onPress={() => navigation.navigate('더보기')}>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="grid-outline" color="black"></Icon></Text>
-                            <Text style={{ color: '#e69900' }}>더보기</Text>
+                            <Text><Icon style={{ fontSize: 30, color: '#e64d00' }} name="grid-outline" color="black"></Icon></Text>
+                            <Text style={{ color: '#e64d00' }}>더보기</Text>
                         </View>
                     </TouchableWithoutFeedback>
 
                 </View>
 
-
             </View>
             {/* 하단바 끝 */}
-
 
         </View>
     )
 }
 
-export default Wb
+export default Plusview

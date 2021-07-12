@@ -84,6 +84,9 @@ const PriceVs = () => {
                             </View>
                             <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20, width: '75%', backgroundColor: '#DCDCDC' }}>
                                 <TextInput ref={tip} style={{ color: 'black', marginLeft: 10 }} placeholder={'직접 입력해주세요.'} onChangeText={(txt) => { setName(txt), setProductN(txt), console.log(txt) }} value={name}></TextInput>
+                                <TouchableWithoutFeedback onPress={() => { setName(''), setProductN('') }}>
+                                    <View style={{ position: 'absolute', right: '5%', top: '25%', alignItems: 'center' }}><Icon name='close-circle' color={'gray'} style={{ fontSize: 20 }}></Icon></View>
+                                </TouchableWithoutFeedback>
                             </View>
                         </View>
                     </View>
@@ -107,7 +110,7 @@ const PriceVs = () => {
                                 </View>
                             </TouchableWithoutFeedback>
 
-                            <TouchableWithoutFeedback onPress={() => { }}>
+                            <TouchableWithoutFeedback onPress={() => { setName(productN), navigation.navigate('쿠팡웹뷰') }}>
                                 <View style={{ alignItems: 'center' }}>
                                     <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20 }}>
                                         {/* <AutoHeightImage style={{ borderRadius: 20, margin: 0.1 }} source={coupang} width={chwidth / 2 - 80}></AutoHeightImage> */}
@@ -120,7 +123,7 @@ const PriceVs = () => {
 
                         {/* 한줄 */}
                         <View style={{ width: '90%', flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20 }}>
-                            <TouchableWithoutFeedback onPress={() => { }}>
+                            <TouchableWithoutFeedback onPress={() => { setName(productN), navigation.navigate('지마켓웹뷰') }}>
                                 <View style={{ alignItems: 'center' }}>
                                     <View style={{ borderWidth: 1, borderRadius: 20, borderColor: 'gray' }}>
                                         <AutoHeightImage style={{ borderRadius: 20, margin: 0.1, backgroundColor: 'white' }} source={gmarket} width={chwidth / 2 - 80}></AutoHeightImage>
@@ -129,7 +132,7 @@ const PriceVs = () => {
                                 </View>
                             </TouchableWithoutFeedback>
 
-                            <TouchableWithoutFeedback onPress={() => { }}>
+                            <TouchableWithoutFeedback onPress={() => { setName(productN), navigation.navigate('옥션웹뷰') }}>
                                 <View style={{ alignItems: 'center' }}>
                                     <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20 }}>
                                         <Image style={{ borderRadius: 20, margin: 0.1, width: chwidth / 2 - 80, height: chwidth / 2 - 80 }} source={auction}></Image>
@@ -141,7 +144,7 @@ const PriceVs = () => {
 
                         {/* 한줄 */}
                         <View style={{ width: '90%', flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20 }}>
-                            <TouchableWithoutFeedback onPress={() => { }}>
+                            <TouchableWithoutFeedback onPress={() => { setName(productN), navigation.navigate('11번가웹뷰') }}>
                                 <View style={{ alignItems: 'center' }}>
                                     <View style={{ borderWidth: 1, borderRadius: 20, borderColor: 'gray' }}>
                                         <AutoHeightImage style={{ borderRadius: 20, margin: 0.1, backgroundColor: 'white' }} source={oost} width={chwidth / 2 - 80}></AutoHeightImage>
@@ -150,7 +153,7 @@ const PriceVs = () => {
                                 </View>
                             </TouchableWithoutFeedback>
 
-                            <TouchableWithoutFeedback onPress={() => { }}>
+                            <TouchableWithoutFeedback onPress={() => { setName(productN), navigation.navigate('인터파크웹뷰') }}>
                                 <View style={{ alignItems: 'center' }}>
                                     <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20 }}>
                                         <Image style={{ borderRadius: 20, margin: 0.1, width: chwidth / 2 - 80, height: chwidth / 2 - 80 }} source={interpark}></Image>
@@ -159,11 +162,6 @@ const PriceVs = () => {
                                 </View>
                             </TouchableWithoutFeedback>
                         </View>
-
-
-
-
-
 
 
                     </View>
@@ -190,32 +188,46 @@ const PriceVs = () => {
                 {/* 하단 광고 끝 */}
             </View>
 
+            {/* 하단바 시작 */}
             <View style={{ width: '100%', height: '8%', backgroundColor: '#ffe6b3', justifyContent: 'center', alignItems: 'center' }}>
 
-                <View style={{ width: '90%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
-                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                        <Text><Icon style={{ fontSize: 30 }} name="barcode-sharp" color="black"></Icon></Text>
-                        <Text>바코드</Text>
-                    </View>
+                <View style={{ width: '85%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
 
-                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                        <Text><Icon style={{ fontSize: 30 }} name="pricetags-outline" color="black"></Icon></Text>
-                        <Text>가격비교</Text>
-                    </View>
+                    <TouchableWithoutFeedback onPress={() => navigation.navigate('바코드체크')}>
+                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                            <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="barcode-sharp" color="black"></Icon></Text>
+                            <Text style={{ color: '#e69900' }}>바코드</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
 
-                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                        <Text><Icon style={{ fontSize: 30 }} name="basket-outline" color="black"></Icon></Text>
-                        <Text>찜목록</Text>
-                    </View>
+                    <TouchableWithoutFeedback onPress={() => { }}>
+                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                            <Text><Icon style={{ fontSize: 30, color: '#e64d00' }} name="pricetags-outline" color="black"></Icon></Text>
+                            <Text style={{ color: '#e64d00' }}>가격비교</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
 
-                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                        <Text><Icon style={{ fontSize: 30 }} name="grid-outline" color="black"></Icon></Text>
-                        <Text>더보기</Text>
-                    </View>
+
+                    <TouchableWithoutFeedback onPress={() => navigation.navigate('찜목록')}>
+                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                            <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="basket-outline" color="black"></Icon></Text>
+                            <Text style={{ color: '#e69900' }}>찜목록</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
+
+
+                    <TouchableWithoutFeedback onPress={() => navigation.navigate('더보기')}>
+                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                            <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="grid-outline" color="black"></Icon></Text>
+                            <Text style={{ color: '#e69900' }}>더보기</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
+
                 </View>
 
 
             </View>
+            {/* 하단바 끝 */}
 
 
         </View>

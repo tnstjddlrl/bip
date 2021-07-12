@@ -49,11 +49,12 @@ const BarcodeCheck = () => {
 
             const $ = cheerio.load(response.data);
 
+            // console.log($('div.productDetailView').find('div.productTit').text().indexOf(pp))
+
             var test = $('div.productDetailView').find('div.productTit').text().replace(/(\s*)/g, "");
 
 
             // console.log($('div.productDetailView').find('div.imgArea').find('img').attr('src'))
-            console.log(test.substring(13, test.length))
             setProductN(test.substring(13, test.length))
             setAtomImg($('div.productDetailView').find('div.imgArea').find('img').attr('src'))
 
@@ -96,23 +97,23 @@ const BarcodeCheck = () => {
                 <View style={{ width: '100%', height: '30%', backgroundColor: 'white' }}>
                     <View style={{ height: '60%' }}>
                         <View style={{ width: chwidth - 40, marginLeft: 20, alignItems: 'center', flexDirection: 'row', marginTop: '3%' }}>
-                            <Text><Icon style={{ fontSize: 50, color: productN === '' ? 'gray' : 'orange' }} name="barcode-sharp" color="black" /> </Text><Text style={{}}> :   {barcc}</Text>
+                            <Text><Icon style={{ fontSize: 45, color: productN === '' ? 'gray' : 'orange' }} name="barcode-sharp" color="black" /> </Text><Text style={{}}> :   {barcc}</Text>
                         </View>
 
                         {productN != '' ?
                             <View style={{ width: chwidth - 40, marginLeft: 20, alignItems: 'center', flexDirection: 'row' }}>
-                                <Text><Icon style={{ fontSize: 50, color: 'orange' }} name="basket-sharp" color="black" /></Text><Text>  :   {productN}</Text>
+                                <Text><Icon style={{ fontSize: 45, color: 'orange' }} name="basket-sharp" color="black" /></Text><Text>  :   {productN}</Text>
                             </View>
                             :
                             <View style={{ width: chwidth - 40, marginLeft: 20, alignItems: 'center', flexDirection: 'row' }}>
-                                <Text><Icon style={{ fontSize: 50 }} name="basket-sharp" color="black" /></Text><Text>  :   상품 검색중!</Text>
+                                <Text><Icon style={{ fontSize: 45 }} name="basket-sharp" color="black" /></Text><Text>  :   상품 검색중!</Text>
                             </View>
                         }
                     </View>
 
                     <TouchableWithoutFeedback onPress={() => { if (productN != '') navigation.navigate('가격비교') }}>
                         <View style={{ width: chwidth - 40, height: '24%', borderRadius: 20, marginTop: '3%', marginLeft: 20, backgroundColor: productN === '' ? '#d9d9d9' : 'orange', alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={{ color: productN === '' ? 'black' : 'white', fontSize: 18 }}>최저가 비교</Text>
+                            <Text style={{ color: productN === '' ? 'black' : 'white', elevation: productN === '' ? 0 : 10, fontSize: 18 }}>최저가 비교</Text>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
@@ -120,25 +121,37 @@ const BarcodeCheck = () => {
                 <View style={{ width: '100%', height: '9%', backgroundColor: '#ffe6b3', justifyContent: 'center', alignItems: 'center' }}>
 
                     <View style={{ width: '90%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
-                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="barcode-sharp" color="black"></Icon></Text>
-                            <Text style={{ color: '#e69900' }}>바코드</Text>
-                        </View>
 
-                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="pricetags-outline" color="black"></Icon></Text>
-                            <Text style={{ color: '#e69900' }}>가격비교</Text>
-                        </View>
+                        <TouchableWithoutFeedback onPress={() => { }}>
+                            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                <Text><Icon style={{ fontSize: 30, color: '#e64d00' }} name="barcode-sharp" color="black"></Icon></Text>
+                                <Text style={{ color: '#e64d00' }}>바코드</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
 
-                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="basket-outline" color="black"></Icon></Text>
-                            <Text style={{ color: '#e69900' }}>찜목록</Text>
-                        </View>
+                        <TouchableWithoutFeedback onPress={() => navigation.navigate('가격비교')}>
+                            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="pricetags-outline" color="black"></Icon></Text>
+                                <Text style={{ color: '#e69900' }}>가격비교</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
 
-                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="grid-outline" color="black"></Icon></Text>
-                            <Text style={{ color: '#e69900' }}>더보기</Text>
-                        </View>
+
+                        <TouchableWithoutFeedback onPress={() => navigation.navigate('찜목록')}>
+                            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="basket-outline" color="black"></Icon></Text>
+                                <Text style={{ color: '#e69900' }}>찜목록</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+
+
+                        <TouchableWithoutFeedback onPress={() => navigation.navigate('더보기')}>
+                            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="grid-outline" color="black"></Icon></Text>
+                                <Text style={{ color: '#e69900' }}>더보기</Text>
+                            </View>
+                        </TouchableWithoutFeedback>
+
                     </View>
 
 
@@ -156,14 +169,6 @@ const BarcodeCheck = () => {
                     <Text style={{ color: 'orange', margin: 10, fontSize: 18 }}>직접입력</Text>
                 </View>
             </TouchableWithoutFeedback>
-
-            <TouchableWithoutFeedback onPress={() => { }}>
-                <View style={{ position: 'absolute', alignSelf: 'flex-end' }}>
-                    <Text style={{ color: 'orange', margin: 10, fontSize: 18 }}>찜 목록</Text>
-                </View>
-            </TouchableWithoutFeedback>
-
-
 
         </View>
     )

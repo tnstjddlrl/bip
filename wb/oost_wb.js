@@ -29,7 +29,7 @@ var cbc = false;
 const chwidth = Dimensions.get('window').width
 const w33 = chwidth / 3
 
-const Wb = () => {
+const Oost_wb = () => {
     const navigation = useNavigation()
 
     const [productN, setProductN] = useRecoilState(productName)
@@ -37,7 +37,7 @@ const Wb = () => {
 
     const barcodeimg = require('../img/barcode_img.png')
 
-    var uri = 'https://msearch.shopping.naver.com/search/all?query=' + productN
+    var uri = 'http://search.11st.co.kr/MW/search?searchKeyword=' + productN
 
     const [key, setKey] = useState(1)
 
@@ -145,4 +145,4 @@ const Wb = () => {
     )
 }
 
-export default Wb
+export default Oost_wb
