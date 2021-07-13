@@ -22,23 +22,27 @@ import { RNCamera } from 'react-native-camera';
 import BarcodeMask from 'react-native-barcode-mask';
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilState } from 'recoil';
-import { productImg, productName } from '../atom/atoms';
+import { productCurList, productImg, productName } from '../atom/atoms';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const chwidth = Dimensions.get('screen').width
 const chheight = Dimensions.get('screen').height
 
+var checkappboot = 0
+
 
 const BarcodeCheck = () => {
     const navigation = useNavigation()
-
 
     const camera = useRef()
     const [barcc, setBarcc] = useState('바코드 탐지중!')
 
     const [atomImg, setAtomImg] = useRecoilState(productImg)
     const [productN, setProductN] = useRecoilState(productName)
+
+    const [atomCurList, setatomCurList] = useRecoilState(productCurList)
 
 
 
@@ -87,6 +91,35 @@ const BarcodeCheck = () => {
 
     }
 
+    const getData = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem('@choi_list')
+            console.log(jsonValue != null ? JSON.parse(jsonValue) : null)
+            setatomCurList(jsonValue != null ? JSON.parse(jsonValue) : [])
+        } catch (e) {
+            // error reading value
+            console.log(e)
+        }
+    }
+
+    const storeData = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value)
+            await AsyncStorage.setItem('@choi_list', jsonValue)
+            console.log('저장완료')
+        } catch (e) {
+            // saving error
+            console.log(e)
+        }
+    }
+    useEffect(() => {
+        if (checkappboot == 0) {
+            getData()
+            checkappboot = 1
+        }
+    }, [checkappboot])
+
+
     return (
         <View style={{ width: '100%', height: '100%' }}>
 
@@ -133,7 +166,19 @@ const BarcodeCheck = () => {
                         }
                     </View>
 
-                    <TouchableWithoutFeedback onPress={() => { if (productN != '') navigation.navigate('가격비교') }}>
+                    <TouchableWithoutFeedback onPress={() => {
+                        if (productN != '') {
+                            navigation.navigate('가격비교')
+                            setatomCurList((ex) => [...ex,
+                            {
+                                name: productN,
+                                img: atomImg
+                            }
+                            ])
+                            storeData(atomCurList)
+                        }
+
+                    }}>
                         <View style={{ width: chwidth - 40, height: '24%', borderRadius: 20, marginTop: '3%', marginLeft: 20, backgroundColor: productN === '' ? '#d9d9d9' : 'orange', alignItems: 'center', justifyContent: 'center' }}>
                             <Text style={{ color: productN === '' ? 'black' : 'white', elevation: productN === '' ? 0 : 10, fontSize: 18 }}>최저가 비교</Text>
                         </View>
