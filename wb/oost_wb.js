@@ -19,7 +19,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { WebView } from 'react-native-webview';
 
 import { useRecoilState } from 'recoil';
-import { productName } from '../atom/atoms';
+import { productImg, productList, productName } from '../atom/atoms';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -31,8 +31,9 @@ const w33 = chwidth / 3
 
 const Oost_wb = () => {
     const navigation = useNavigation()
-
     const [productN, setProductN] = useRecoilState(productName)
+    const [atomList, setatomList] = useRecoilState(productList)
+    const [atomImg, setAtomImg] = useRecoilState(productImg)
 
 
     const barcodeimg = require('../img/barcode_img.png')
