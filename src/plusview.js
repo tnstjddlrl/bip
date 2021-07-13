@@ -52,7 +52,8 @@ const Plusview = () => {
             {/* 헤더 끝 */}
 
             <View style={{ width: '100%', height: '84%' }}>
-
+                <Text>배신자컴퍼니는 디자이너, 프로그래머 한 명씩으로 구성된 2인조 개발 그룹입니다. 첫번째 앱출시를 성공하게 되었습니다. 비록 부족한 부분이 많지만 너그럽게 양해를 바라며 아래의 정보를 통해 버그제보도 받고있습니다.
+                </Text>
             </View>
 
             {/* 하단바 시작 */}
@@ -75,7 +76,7 @@ const Plusview = () => {
                     </TouchableWithoutFeedback>
 
 
-                    <TouchableWithoutFeedback onPress={() => { }}>
+                    <TouchableWithoutFeedback onPress={() => { navigation.navigate('찜목록') }}>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                             <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="cart-outline" color="black"></Icon></Text>
                             <Text style={{ color: '#e69900' }}>찜목록</Text>
@@ -83,7 +84,7 @@ const Plusview = () => {
                     </TouchableWithoutFeedback>
 
 
-                    <TouchableWithoutFeedback onPress={() => navigation.navigate('더보기')}>
+                    <TouchableWithoutFeedback onPress={() => { }}>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                             <Text><Icon style={{ fontSize: 30, color: '#e64d00' }} name="grid-outline" color="black"></Icon></Text>
                             <Text style={{ color: '#e64d00' }}>더보기</Text>

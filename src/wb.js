@@ -19,7 +19,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { WebView } from 'react-native-webview';
 
 import { useRecoilState } from 'recoil';
-import { productName } from '../atom/atoms';
+import { productImg, productList, productName } from '../atom/atoms';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -33,6 +33,8 @@ const Wb = () => {
     const navigation = useNavigation()
 
     const [productN, setProductN] = useRecoilState(productName)
+    const [atomList, setatomList] = useRecoilState(productList)
+    const [atomImg, setAtomImg] = useRecoilState(productImg)
 
 
     const barcodeimg = require('../img/barcode_img.png')
@@ -76,7 +78,20 @@ const Wb = () => {
                         <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}>B</Text>
                     </View>
 
-                    <TouchableWithoutFeedback onPress={() => { }}>
+                    <TouchableWithoutFeedback onPress={() => {
+                        console.log(productN + atomImg)
+                        setatomList((ex) => [...ex,
+                        {
+                            name: productN,
+                            where: '네이버',
+                            img: atomImg
+                        }
+                        ]),
+                            setProductN(''),
+                            setAtomImg('')
+                            , Alert.alert('저장완료')
+                            , navigation.navigate('바코드체크')
+                    }}>
                         <View style={{ width: '20%', borderRadius: 10, backgroundColor: '#ffe6b3', alignItems: 'center', justifyContent: 'center' }}>
                             <Text style={{ fontSize: 20, color: 'orange', fontWeight: 'bold', margin: 5 }}>찜하기</Text>
                         </View>
