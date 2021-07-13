@@ -11,7 +11,8 @@ import {
     Dimensions,
     BackHandler,
     Alert,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Image
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -23,7 +24,35 @@ import { useNavigation } from '@react-navigation/native';
 
 const chwidth = Dimensions.get('window').width
 
-const testd = [{ name: '콜라', where: '네이버', img: '' }]
+const testd = [{ name: '펩시 제로 210ml캔', where: '네이버', img: 'http://gs1.koreannet.or.kr/product/info/detail/photoView.do?fileNm=8801056000011_8801056175832_1.jpg&filePath=8801056000011/8801056175832' }, { name: '콜라', where: '네이버', img: '' }, { name: '콜라', where: '네이버', img: '' }, { name: '콜라', where: '네이버', img: '' }]
+
+const JjimItem = (prop) => {
+    return (
+        <View style={{ width: chwidth / 3 - 20, justifyContent: 'center', alignItems: 'center', marginTop: 35, marginLeft: 15 }}>
+            <View style={{ width: chwidth / 3 - 20, height: chwidth / 3 - 20, borderRadius: 20, borderWidth: 1, borderColor: 'gray', justifyContent: 'center', alignItems: 'center' }}>
+                {prop.img != '' ?
+                    <Image source={{ uri: prop.img }} style={{ width: '100%', height: '100%', borderRadius: 20, }}></Image>
+                    :
+                    <Text>이미지 없음</Text>
+                }
+            </View>
+            <Text numberOfLines={1} style={{ fontWeight: 'bold', marginTop: 3 }}>{prop.name}</Text>
+            <Text numberOfLines={1} style={{ marginTop: 3 }}>{prop.where}</Text>
+        </View>
+    )
+}
+
+const JjimPush = () => {
+    var List = []
+
+    for (var i = 0; i < testd.length; i++) {
+        List.push(<JjimItem key={i} name={testd[i].name} where={testd[i].where} img={testd[i].img}></JjimItem>)
+    }
+
+
+    return List;
+}
+
 
 const Jjim = () => {
     const navigation = useNavigation()
@@ -72,7 +101,11 @@ const Jjim = () => {
 
                 {/* 찜한 상품 시작 */}
                 {state == 'jjim' &&
-                    <ScrollView style={{ flex: 1, backgroundColor: 'gray' }}>
+                    <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
+                        <View style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
+                            <JjimPush></JjimPush>
+
+                        </View>
 
                     </ScrollView>
                 }
