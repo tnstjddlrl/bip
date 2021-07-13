@@ -23,8 +23,12 @@ import { useNavigation } from '@react-navigation/native';
 
 const chwidth = Dimensions.get('window').width
 
+const testd = [{ name: '콜라', where: '네이버', img: '' }]
+
 const Jjim = () => {
     const navigation = useNavigation()
+
+    const [state, setState] = useState('jjim')
 
     return (
         <View style={{ width: '100%', height: '100%' }}>
@@ -32,7 +36,7 @@ const Jjim = () => {
             {/* 헤더 시작 */}
             <View style={{ backgroundColor: '#6E6E6E', width: '100%', height: '8%', alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '95%', alignItems: 'center' }}>
-                    <View style={{ width: '20%' }}>
+                    <View style={{ width: '21%' }}>
                         <Icon name='ios-arrow-back-sharp' color='orange' style={{ fontSize: 40 }}></Icon>
                     </View>
 
@@ -41,8 +45,8 @@ const Jjim = () => {
                     </View>
 
                     <TouchableWithoutFeedback onPress={() => { }}>
-                        <View style={{ width: '20%', borderRadius: 10, backgroundColor: '#ffe6b3', alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 20, color: 'orange', fontWeight: 'bold', margin: 5 }}>찜하기</Text>
+                        <View style={{ width: '21%', borderRadius: 10, backgroundColor: '#ffe6b3', alignItems: 'center', justifyContent: 'center' }}>
+                            <Text style={{ fontSize: 17, color: 'orange', fontWeight: 'bold', margin: 5 }}>전체삭제</Text>
                         </View>
                     </TouchableWithoutFeedback>
 
@@ -51,9 +55,39 @@ const Jjim = () => {
 
             {/* 헤더 끝 */}
 
+            {/* 본문 시작 */}
             <View style={{ width: '100%', height: '84%' }}>
 
+                {/* 상단 메뉴 */}
+                <View style={{ width: '100%', height: '10%', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'flex-end' }}>
+                    <TouchableWithoutFeedback onPress={() => { setState('jjim') }}>
+                        <Text style={{ fontSize: 25, color: state == 'jjim' ? '#e69900' : 'gray' }}>찜한 상품</Text>
+                    </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback onPress={() => { setState('choi') }}>
+                        <Text style={{ fontSize: 25, color: state != 'jjim' ? '#e69900' : 'gray' }}>최근 본 상품</Text>
+                    </TouchableWithoutFeedback>
+                </View>
+                <View style={{ width: '100%', borderWidth: 1, borderColor: 'gray', marginTop: 6 }}></View>
+                {/* 상단 메뉴 끝 */}
+
+                {/* 찜한 상품 시작 */}
+                {state == 'jjim' &&
+                    <ScrollView style={{ flex: 1, backgroundColor: 'gray' }}>
+
+                    </ScrollView>
+                }
+                {/* 찜한 상품 끝 */}
+
+                {/* 최근 본 상품 시작 */}
+                {state == 'choi' &&
+                    <ScrollView style={{ flex: 1, backgroundColor: 'skyblue' }}>
+
+                    </ScrollView>
+                }
+                {/* 최근 본 상품 끝 */}
+
             </View>
+            {/* 본문 끝 */}
 
             {/* 하단바 시작 */}
             <View style={{ width: '100%', height: '9%', backgroundColor: '#ffe6b3', justifyContent: 'center', alignItems: 'center' }}>
