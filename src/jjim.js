@@ -41,6 +41,10 @@ const testd = [{ name: '펩시 제로 210ml캔', where: '네이버', img: 'http:
 { name: '콜라', where: '지마켓', img: '' }]
 
 const JjimItem = (prop) => {
+    const navigation = useNavigation()
+
+    const [atomList, setatomList] = useRecoilState(productList)
+    const [productN, setProductN] = useRecoilState(productName)
 
     if (prop.img == '/images/common/no_img.gif') {
         var uri = ''
@@ -55,30 +59,46 @@ const JjimItem = (prop) => {
             switch (prop.where) {
                 case '네이버':
                     console.log('네이버');
-
+                    setProductN(prop.name)
+                    navigation.navigate('웹뷰')
                     break;
                 case '옥션':
                     console.log('옥션');
-
+                    setProductN(prop.name)
+                    navigation.navigate('옥션웹뷰')
                     break;
                 case '쿠팡':
                     console.log('쿠팡');
-
+                    setProductN(prop.name)
+                    navigation.navigate('쿠팡웹뷰')
                     break;
                 case '지마켓':
                     console.log('지마켓');
-
+                    setProductN(prop.name)
+                    navigation.navigate('지마켓웹뷰')
                     break;
                 case '인터파크':
                     console.log('인터파크');
-
+                    setProductN(prop.name)
+                    navigation.navigate('인터파크웹뷰')
                     break;
                 case '11번가':
                     console.log('11번가');
-
+                    setProductN(prop.name)
+                    navigation.navigate('11번가웹뷰')
                     break;
             }
-        }}>
+        }}
+            onLongPress={(e) => {
+                console.log(prop.id),
+                    setatomList((ex) => [
+                        ...ex.slice(0, prop.id),
+                        ...ex.slice(prop.id + 1, ex.length)
+                    ])
+
+
+            }}
+        >
             <View style={{ width: chwidth / 3 - 20, justifyContent: 'center', alignItems: 'center', marginTop: 35, marginLeft: 15 }}>
                 <View style={{ width: chwidth / 3 - 20, height: chwidth / 3 - 20, borderRadius: 20, borderWidth: 1, borderColor: 'gray', justifyContent: 'center', alignItems: 'center' }}>
                     {uri != '' ?
@@ -101,7 +121,7 @@ const JjimPush = () => {
     var List = []
 
     for (var i = 0; i < atomList.length; i++) {
-        List.push(<JjimItem key={i} name={atomList[i].name} where={atomList[i].where} img={atomList[i].img}></JjimItem>)
+        List.push(<JjimItem key={i} id={i} name={atomList[i].name} where={atomList[i].where} img={atomList[i].img}></JjimItem>)
     }
 
     console.log(atomList)
@@ -128,9 +148,20 @@ const Jjim = () => {
                         <Icon name='ios-arrow-back-sharp' color='orange' style={{ fontSize: 40 }}></Icon>
                     </View>
 
-                    <View style={{ width: '20%', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}>B</Text>
-                    </View>
+                    <TouchableWithoutFeedback onPress={() => {
+                        setatomList((ex) => [...ex,
+                        {
+                            name: '테스트',
+                            where: '네이버',
+                            img: ''
+                        }
+                        ])
+
+                    }}>
+                        <View style={{ width: '20%', alignItems: 'center' }}>
+                            <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}>B</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
 
                     <TouchableWithoutFeedback onPress={() => { if (state == 'jjim') setatomList([]) }}>
                         <View style={{ width: '21%', borderRadius: 10, backgroundColor: '#ffe6b3', alignItems: 'center', justifyContent: 'center' }}>
