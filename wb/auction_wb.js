@@ -121,7 +121,7 @@ const Auction_wb = () => {
 
                     <TouchableWithoutFeedback onPress={() => navigation.navigate('찜목록')}>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="basket-outline" color="black"></Icon></Text>
+                            <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="cart-outline" color="black"></Icon></Text>
                             <Text style={{ color: '#e69900' }}>찜목록</Text>
                         </View>
                     </TouchableWithoutFeedback>

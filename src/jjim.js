@@ -77,7 +77,7 @@ const Jjim = () => {
 
                     <TouchableWithoutFeedback onPress={() => { }}>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <Text><Icon style={{ fontSize: 30, color: '#e64d00' }} name="basket-outline" color="black"></Icon></Text>
+                            <Text><Icon style={{ fontSize: 30, color: '#e64d00' }} name="cart-outline" color="black"></Icon></Text>
                             <Text style={{ color: '#e64d00' }}>찜목록</Text>
                         </View>
                     </TouchableWithoutFeedback>
