@@ -119,6 +119,29 @@ const BarcodeCheck = () => {
         }
     }, [checkappboot])
 
+    function savechoi() {
+
+        for (var i = 0; i < atomCurList.length; i++) {
+            if (atomCurList[i].name == productN) {
+                navigation.navigate('가격비교')
+                console.log('최근 본 목록에 추가합니다.')
+                return
+            }
+        }
+        setatomCurList((ex) => [...ex,
+        {
+            name: productN,
+            img: atomImg
+        }
+        ])
+        storeData(atomCurList)
+        navigation.navigate('가격비교')
+        console.log('최근 본 목록에 이미 존재합니다.')
+
+        return
+
+    }
+
 
     return (
         <View style={{ width: '100%', height: '100%' }}>
@@ -168,14 +191,7 @@ const BarcodeCheck = () => {
 
                     <TouchableWithoutFeedback onPress={() => {
                         if (productN != '') {
-                            navigation.navigate('가격비교')
-                            setatomCurList((ex) => [...ex,
-                            {
-                                name: productN,
-                                img: atomImg
-                            }
-                            ])
-                            storeData(atomCurList)
+                            savechoi()
                         }
 
                     }}>

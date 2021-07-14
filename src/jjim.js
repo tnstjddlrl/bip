@@ -18,7 +18,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { useRecoilState } from 'recoil';
-import { productList, productName } from '../atom/atoms';
+import { productCurList, productList, productName } from '../atom/atoms';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -130,6 +130,68 @@ const JjimPush = () => {
 }
 
 
+const ChoiItem = (prop) => {
+    const navigation = useNavigation()
+
+    const [productN, setProductN] = useRecoilState(productName)
+    const [atomCurList, setatomCurList] = useRecoilState(productCurList)
+
+
+    if (prop.img == '/images/common/no_img.gif') {
+        var uri = ''
+    } else {
+        var uri = prop.img
+    }
+
+    return (
+        <TouchableWithoutFeedback onPress={() => {
+
+        }
+        }
+            onLongPress={(e) => {
+                console.log(prop.id),
+                    setatomCurList((ex) => [
+                        ...ex.slice(0, prop.id),
+                        ...ex.slice(prop.id + 1, ex.length)
+                    ])
+
+
+            }}
+        >
+            <View style={{ width: chwidth / 3 - 20, justifyContent: 'center', alignItems: 'center', marginTop: 35, marginLeft: 15 }}>
+                <View style={{ width: chwidth / 3 - 20, height: chwidth / 3 - 20, borderRadius: 20, borderWidth: 1, borderColor: 'gray', justifyContent: 'center', alignItems: 'center' }}>
+                    {uri != '' ?
+                        <Image source={{ uri: uri }} style={{ width: '100%', height: '100%', borderRadius: 20, }}></Image>
+                        :
+                        <Text>이미지 없음</Text>
+                    }
+                </View>
+                <Text numberOfLines={1} style={{ fontWeight: 'bold', marginTop: 3 }}>{prop.name}</Text>
+
+            </View>
+        </TouchableWithoutFeedback>
+    )
+}
+
+
+const ChoiPush = () => {
+
+    const [atomCurList, setatomCurList] = useRecoilState(productCurList)
+
+    var List = []
+
+    for (var i = 0; i < atomCurList.length; i++) {
+        List.push(<ChoiItem key={i} id={i} name={atomCurList[i].name} img={atomCurList[i].img}></ChoiItem>)
+    }
+
+    console.log(atomCurList)
+
+    return List;
+}
+
+
+
+
 const Jjim = () => {
     const navigation = useNavigation()
 
@@ -157,13 +219,25 @@ const Jjim = () => {
                         }
                         ])
 
+                        setatomCurList((ex) => [...ex,
+                        {
+                            name: '테스트',
+                            img: ''
+                        }
+                        ])
+
                     }}>
                         <View style={{ width: '20%', alignItems: 'center' }}>
                             <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}>B</Text>
                         </View>
                     </TouchableWithoutFeedback>
 
-                    <TouchableWithoutFeedback onPress={() => { if (state == 'jjim') setatomList([]) }}>
+                    <TouchableWithoutFeedback onPress={() => {
+                        if (state == 'jjim')
+                            setatomList([]);
+                        else
+                            setatomCurList([])
+                    }}>
                         <View style={{ width: '21%', borderRadius: 10, backgroundColor: '#ffe6b3', alignItems: 'center', justifyContent: 'center' }}>
                             <Text style={{ fontSize: 17, color: 'orange', fontWeight: 'bold', margin: 5 }}>전체삭제</Text>
                         </View>
@@ -204,7 +278,9 @@ const Jjim = () => {
                 {/* 최근 본 상품 시작 */}
                 {state == 'choi' &&
                     <ScrollView style={{ flex: 1, backgroundColor: 'skyblue' }}>
-
+                        <View style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
+                            <ChoiPush></ChoiPush>
+                        </View>
                     </ScrollView>
                 }
                 {/* 최근 본 상품 끝 */}
