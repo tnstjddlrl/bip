@@ -126,6 +126,7 @@ const BarcodeCheck = () => {
             console.log(e)
         }
     }
+
     useEffect(() => {
         if (checkappboot == 0) {
             getData()
@@ -149,7 +150,10 @@ const BarcodeCheck = () => {
             img: atomImg
         }
         ])
+
         storeData(atomCurList)
+        storeData(atomCurList)
+
         navigation.navigate('가격비교')
         console.log('최근 본 목록에 이미 존재합니다.')
 
