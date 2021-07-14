@@ -22,7 +22,7 @@ import { RNCamera } from 'react-native-camera';
 import BarcodeMask from 'react-native-barcode-mask';
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilState } from 'recoil';
-import { productCurList, productImg, productName } from '../atom/atoms';
+import { productCurList, productImg, productList, productName } from '../atom/atoms';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -43,6 +43,7 @@ const BarcodeCheck = () => {
     const [productN, setProductN] = useRecoilState(productName)
 
     const [atomCurList, setatomCurList] = useRecoilState(productCurList)
+    const [atomList, setatomList] = useRecoilState(productList)
 
 
 
@@ -94,8 +95,21 @@ const BarcodeCheck = () => {
     const getData = async () => {
         try {
             const jsonValue = await AsyncStorage.getItem('@choi_list')
+            console.log('choi : ')
             console.log(jsonValue != null ? JSON.parse(jsonValue) : null)
             setatomCurList(jsonValue != null ? JSON.parse(jsonValue) : [])
+        } catch (e) {
+            // error reading value
+            console.log(e)
+        }
+    }
+
+    const getData_jjim = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem('@jjim_list')
+            console.log('jjim : ')
+            console.log(jsonValue != null ? JSON.parse(jsonValue) : null)
+            setatomList(jsonValue != null ? JSON.parse(jsonValue) : [])
         } catch (e) {
             // error reading value
             console.log(e)
@@ -115,6 +129,7 @@ const BarcodeCheck = () => {
     useEffect(() => {
         if (checkappboot == 0) {
             getData()
+            getData_jjim()
             checkappboot = 1
         }
     }, [checkappboot])

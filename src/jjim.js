@@ -21,6 +21,8 @@ import { useRecoilState } from 'recoil';
 import { productCurList, productList, productName } from '../atom/atoms';
 import { useNavigation } from '@react-navigation/native';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const chwidth = Dimensions.get('window').width
 
@@ -52,6 +54,17 @@ const JjimItem = (prop) => {
     } else {
         var uri = prop.img
         var noimg = false
+    }
+
+    const storeData = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value)
+            await AsyncStorage.setItem('@jjim_list', jsonValue)
+            console.log('저장완료')
+        } catch (e) {
+            // saving error
+            console.log(e)
+        }
     }
 
     return (
@@ -96,6 +109,8 @@ const JjimItem = (prop) => {
                         ...ex.slice(prop.id + 1, ex.length)
                     ])
 
+                storeData(atomList)
+                storeData(atomList)
 
             }}
         >
@@ -136,6 +151,17 @@ const ChoiItem = (prop) => {
     const [productN, setProductN] = useRecoilState(productName)
     const [atomCurList, setatomCurList] = useRecoilState(productCurList)
 
+    const storeData = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value)
+            await AsyncStorage.setItem('@choi_list', jsonValue)
+            console.log('저장완료')
+        } catch (e) {
+            // saving error
+            console.log(e)
+        }
+    }
+
 
     if (prop.img == '/images/common/no_img.gif') {
         var uri = ''
@@ -155,6 +181,8 @@ const ChoiItem = (prop) => {
                         ...ex.slice(prop.id + 1, ex.length)
                     ])
 
+                storeData(atomCurList)
+                storeData(atomCurList)
 
             }}
         >
@@ -198,6 +226,18 @@ const Jjim = () => {
     const [state, setState] = useState('jjim')
 
     const [atomList, setatomList] = useRecoilState(productList)
+    const [atomCurList, setatomCurList] = useRecoilState(productCurList)
+
+    const storeData = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value)
+            await AsyncStorage.setItem('@choi_list', jsonValue)
+            console.log('저장완료')
+        } catch (e) {
+            // saving error
+            console.log(e)
+        }
+    }
 
 
     return (
@@ -235,8 +275,10 @@ const Jjim = () => {
                     <TouchableWithoutFeedback onPress={() => {
                         if (state == 'jjim')
                             setatomList([]);
-                        else
+                        else {
                             setatomCurList([])
+                            storeData(atomCurList)
+                        }
                     }}>
                         <View style={{ width: '21%', borderRadius: 10, backgroundColor: '#ffe6b3', alignItems: 'center', justifyContent: 'center' }}>
                             <Text style={{ fontSize: 17, color: 'orange', fontWeight: 'bold', margin: 5 }}>전체삭제</Text>

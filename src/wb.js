@@ -22,6 +22,8 @@ import { useRecoilState } from 'recoil';
 import { productImg, productList, productName } from '../atom/atoms';
 import { useNavigation } from '@react-navigation/native';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 var rnw
 var cbc = false;
@@ -64,6 +66,42 @@ const Wb = () => {
         return unsubscribe;
     }, [navigation]);
 
+
+    const storeData = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value)
+            await AsyncStorage.setItem('@jjim_list', jsonValue)
+            console.log('저장완료')
+        } catch (e) {
+            // saving error
+            console.log(e)
+        }
+    }
+
+
+    function savelist() {
+        for (var i = 0; i < atomList.length; i++) {
+            if (atomList[i].name == productN) {
+                Alert.alert('이미 제품이 찜목록에 존재합니다.')
+                navigation.goBack()
+                return
+            }
+        }
+
+        setatomList((ex) => [...ex,
+        {
+            name: productN,
+            where: '네이버',
+            img: atomImg
+        }
+        ])
+        setProductN('')
+        setAtomImg('')
+        storeData(atomList)
+        Alert.alert('저장완료')
+        navigation.navigate('바코드체크')
+    }
+
     return (
         <View style={{ width: '100%', height: '100%' }}>
 
@@ -79,18 +117,7 @@ const Wb = () => {
                     </View>
 
                     <TouchableWithoutFeedback onPress={() => {
-                        console.log(productN + atomImg)
-                        setatomList((ex) => [...ex,
-                        {
-                            name: productN,
-                            where: '네이버',
-                            img: atomImg
-                        }
-                        ]),
-                            setProductN(''),
-                            setAtomImg('')
-                            , Alert.alert('저장완료')
-                            , navigation.navigate('바코드체크')
+                        savelist()
                     }}>
                         <View style={{ width: '20%', borderRadius: 10, backgroundColor: '#ffe6b3', alignItems: 'center', justifyContent: 'center' }}>
                             <Text style={{ fontSize: 20, color: 'orange', fontWeight: 'bold', margin: 5 }}>찜하기</Text>
