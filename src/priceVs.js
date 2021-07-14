@@ -2,10 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import {
     SafeAreaView,
     ScrollView,
-    StatusBar,
     StyleSheet,
     Text,
-    useColorScheme,
     View,
     Dimensions,
     Alert,
@@ -39,30 +37,12 @@ const PriceVs = () => {
 
     const tip = useRef()
 
-
     const navigation = useNavigation()
 
     const [name, setName] = useState('')
 
     const [atomImg, setAtomImg] = useRecoilState(productImg)
     const [productN, setProductN] = useRecoilState(productName)
-
-
-    // useEffect(() => {
-    //     const unsubscribe = navigation.addListener('focus', () => {
-    //         console.log('넘어온 값 : ' + productN)
-    //         setName(() => productN)
-
-    //         console.log(atomImg)
-
-
-    //         if (productN === '') {
-    //             tip.current.focus()
-    //         }
-    //     });
-
-    //     return unsubscribe;
-    // }, [navigation]);
 
     useEffect(() => {
         setName(productN)
