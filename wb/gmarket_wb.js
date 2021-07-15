@@ -111,9 +111,11 @@ const Gmarket_wb = () => {
             {/* 헤더 시작 */}
             <View style={{ backgroundColor: '#6E6E6E', width: '100%', height: '8%', alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '95%', alignItems: 'center' }}>
-                    <View style={{ width: '20%' }}>
-                        <Icon name='ios-arrow-back-sharp' color='orange' style={{ fontSize: 40 }}></Icon>
-                    </View>
+                    <TouchableWithoutFeedback onPress={() => { navigation.goBack() }}>
+                        <View style={{ width: '20%' }}>
+                            <Icon name='ios-arrow-back-sharp' color='orange' style={{ fontSize: 40 }}></Icon>
+                        </View>
+                    </TouchableWithoutFeedback>
 
                     <View style={{ width: '20%', alignItems: 'center' }}>
                         <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}>B</Text>
@@ -151,8 +153,8 @@ const Gmarket_wb = () => {
 
                     <TouchableWithoutFeedback onPress={() => navigation.navigate('바코드체크')}>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                            <Text><Icon style={{ fontSize: 30, color: '#e64d00' }} name="barcode-sharp" color="black"></Icon></Text>
-                            <Text style={{ color: '#e64d00' }}>바코드</Text>
+                            <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="barcode-sharp" color="black"></Icon></Text>
+                            <Text style={{ color: '#e69900' }}>바코드</Text>
                         </View>
                     </TouchableWithoutFeedback>
 
