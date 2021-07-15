@@ -172,7 +172,7 @@ const PriceVs = () => {
             {/* 하단바 시작 */}
             <View style={{ width: '100%', height: '8%', backgroundColor: '#ffe6b3', justifyContent: 'center', alignItems: 'center' }}>
 
-                <View style={{ width: '85%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
+                <View style={{ width: '80%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
 
                     <TouchableWithoutFeedback onPress={() => navigation.navigate('바코드체크')}>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -197,12 +197,12 @@ const PriceVs = () => {
                     </TouchableWithoutFeedback>
 
 
-                    <TouchableWithoutFeedback onPress={() => navigation.navigate('더보기')}>
+                    {/* <TouchableWithoutFeedback onPress={() => navigation.navigate('더보기')}>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                             <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="grid-outline" color="black"></Icon></Text>
                             <Text style={{ color: '#e69900' }}>더보기</Text>
                         </View>
-                    </TouchableWithoutFeedback>
+                    </TouchableWithoutFeedback> */}
 
                 </View>
 

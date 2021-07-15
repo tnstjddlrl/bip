@@ -227,7 +227,7 @@ const BarcodeCheck = () => {
 
                 <View style={{ width: '100%', height: '9%', backgroundColor: '#ffe6b3', justifyContent: 'center', alignItems: 'center' }}>
 
-                    <View style={{ width: '90%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
+                    <View style={{ width: '80%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
 
                         <TouchableWithoutFeedback onPress={() => { }}>
                             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -252,12 +252,12 @@ const BarcodeCheck = () => {
                         </TouchableWithoutFeedback>
 
 
-                        <TouchableWithoutFeedback onPress={() => navigation.navigate('더보기')}>
+                        {/* <TouchableWithoutFeedback onPress={() => navigation.navigate('더보기')}>
                             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                                 <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="grid-outline" color="black"></Icon></Text>
                                 <Text style={{ color: '#e69900' }}>더보기</Text>
                             </View>
-                        </TouchableWithoutFeedback>
+                        </TouchableWithoutFeedback> */}
 
                     </View>
 
