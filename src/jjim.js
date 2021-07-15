@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, useRef } from 'react';
 import { useState } from 'react';
 import {
     SafeAreaView,
@@ -203,6 +203,8 @@ const ChoiPush = () => {
 
 
 const Jjim = () => {
+    const ii = useRef()
+
     const navigation = useNavigation()
 
     const [state, setState] = useState('jjim')
@@ -299,51 +301,40 @@ const Jjim = () => {
 
                 {/* 상단 메뉴 */}
                 <View style={{ width: '100%', height: '10%', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'flex-end' }}>
-                    <TouchableWithoutFeedback onPress={() => { setState('jjim') }}>
+                    <TouchableWithoutFeedback onPress={() => { setState('jjim'), ii.current.scrollTo({ x: 0, y: 0 }) }}>
                         <Text style={{ fontSize: 25, color: state == 'jjim' ? '#e69900' : 'gray' }}>찜한 상품</Text>
                     </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback onPress={() => { setState('choi') }}>
+                    <TouchableWithoutFeedback onPress={() => { setState('choi'), ii.current.scrollTo({ x: 400, y: 0 }) }}>
                         <Text style={{ fontSize: 25, color: state != 'jjim' ? '#e69900' : 'gray' }}>최근 본 상품</Text>
                     </TouchableWithoutFeedback>
                 </View>
                 <View style={{ width: '100%', borderWidth: 1, borderColor: 'gray', marginTop: 6 }}></View>
                 {/* 상단 메뉴 끝 */}
 
-                {/* 찜한 상품 시작 */}
-                {state == 'jjim' &&
-                    <FlingGestureHandler direction={Directions.LEFT}
-                        onHandlerStateChange={({ nativeEvent }) => {
-                            if (nativeEvent.state === State.ACTIVE) {
-                                setState('choi')
-                            }
-                        }}>
-                        <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-                            <View style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
-                                <JjimPush></JjimPush>
+                <ScrollView ref={ii} style={{ width: chwidth, height: '100%' }} horizontal showsHorizontalScrollIndicator={false} pagingEnabled={true}
+                    onScroll={(res) => { if (res.nativeEvent.contentOffset.x < 150) setState('jjim'); else setState('choi'); }}
+                >
+                    {/* 찜한 상품 시작 */}
+                    <ScrollView style={{ width: chwidth, height: '100%', backgroundColor: 'white' }}>
+                        <View style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
+                            <JjimPush></JjimPush>
 
-                            </View>
+                        </View>
 
-                        </ScrollView>
-                    </FlingGestureHandler>
-                }
-                {/* 찜한 상품 끝 */}
+                    </ScrollView>
+                    {/* 찜한 상품 끝 */}
 
-                {/* 최근 본 상품 시작 */}
-                {state == 'choi' &&
-                    <FlingGestureHandler direction={Directions.RIGHT}
-                        onHandlerStateChange={({ nativeEvent }) => {
-                            if (nativeEvent.state === State.ACTIVE) {
-                                setState('jjim')
-                            }
-                        }}>
-                        <ScrollView style={{ flex: 1, backgroundColor: 'skyblue' }}>
-                            <View style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
-                                <ChoiPush></ChoiPush>
-                            </View>
-                        </ScrollView>
-                    </FlingGestureHandler>
-                }
-                {/* 최근 본 상품 끝 */}
+                    <View style={{ height: '100%', borderWidth: 0.5, borderColor: 'gray' }}></View>
+
+                    {/* 최근 본 상품 시작 */}
+                    <ScrollView style={{ width: chwidth, height: '100%', backgroundColor: 'white' }}>
+                        <View style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
+                            <ChoiPush></ChoiPush>
+                        </View>
+                    </ScrollView>
+                    {/* 최근 본 상품 끝 */}
+
+                </ScrollView>
 
             </View>
             {/* 본문 끝 */}
@@ -351,7 +342,7 @@ const Jjim = () => {
             {/* 하단바 시작 */}
             <View style={{ width: '100%', height: '9%', backgroundColor: '#ffe6b3', justifyContent: 'center', alignItems: 'center' }}>
 
-                <View style={{ width: '90%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
+                <View style={{ width: '80%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
 
                     <TouchableWithoutFeedback onPress={() => navigation.navigate('바코드체크')}>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -376,12 +367,12 @@ const Jjim = () => {
                     </TouchableWithoutFeedback>
 
 
-                    <TouchableWithoutFeedback onPress={() => navigation.navigate('더보기')}>
+                    {/* <TouchableWithoutFeedback onPress={() => navigation.navigate('더보기')}>
                         <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                             <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="grid-outline" color="black"></Icon></Text>
                             <Text style={{ color: '#e69900' }}>더보기</Text>
                         </View>
-                    </TouchableWithoutFeedback>
+                    </TouchableWithoutFeedback> */}
 
                 </View>
 
