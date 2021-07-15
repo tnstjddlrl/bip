@@ -117,10 +117,12 @@ const BarcodeCheck = () => {
     }
 
     const storeData = async (value) => {
+        console.log('뭐지??????????????? ' + JSON.stringify(value))
+
         try {
             const jsonValue = JSON.stringify(value)
             await AsyncStorage.setItem('@choi_list', jsonValue)
-            console.log('저장완료')
+            console.log('어싱크 저장완료')
         } catch (e) {
             // saving error
             console.log(e)
@@ -135,15 +137,21 @@ const BarcodeCheck = () => {
         }
     }, [checkappboot])
 
+    useEffect(() => {
+        console.log('effect확인 ===' + JSON.stringify(atomCurList))
+        storeData(atomCurList)
+    }, [atomCurList])
+
     function savechoi() {
 
         for (var i = 0; i < atomCurList.length; i++) {
             if (atomCurList[i].name == productN) {
                 navigation.navigate('가격비교')
-                console.log('최근 본 목록에 추가합니다.')
+                console.log('최근 본 목록에 이미 존재합니다.')
                 return
             }
         }
+
         setatomCurList((ex) => [...ex,
         {
             name: productN,
@@ -151,11 +159,8 @@ const BarcodeCheck = () => {
         }
         ])
 
-        storeData(atomCurList)
-        storeData(atomCurList)
-
         navigation.navigate('가격비교')
-        console.log('최근 본 목록에 이미 존재합니다.')
+        console.log('최근 본 목록에 추가합니다.')
 
         return
 

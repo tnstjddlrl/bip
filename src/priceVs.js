@@ -45,6 +45,7 @@ const PriceVs = () => {
     const [productN, setProductN] = useRecoilState(productName)
 
     useEffect(() => {
+        console.log('넘어온 값 : ' + productN)
         setName(productN)
     }, [])
 

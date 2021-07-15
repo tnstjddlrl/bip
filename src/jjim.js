@@ -18,7 +18,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { useRecoilState } from 'recoil';
-import { productCurList, productList, productName } from '../atom/atoms';
+import { productCurList, productImg, productList, productName } from '../atom/atoms';
 import { useNavigation } from '@react-navigation/native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -55,17 +55,6 @@ const JjimItem = (prop) => {
     } else {
         var uri = prop.img
         var noimg = false
-    }
-
-    const storeData = async (value) => {
-        try {
-            const jsonValue = JSON.stringify(value)
-            await AsyncStorage.setItem('@jjim_list', jsonValue)
-            console.log('저장완료')
-        } catch (e) {
-            // saving error
-            console.log(e)
-        }
     }
 
     return (
@@ -110,8 +99,6 @@ const JjimItem = (prop) => {
                         ...ex.slice(prop.id + 1, ex.length)
                     ])
 
-                storeData(atomList)
-                storeData(atomList)
 
             }}
         >
@@ -120,10 +107,10 @@ const JjimItem = (prop) => {
                     {uri != '' ?
                         <Image source={{ uri: uri }} style={{ width: '100%', height: '100%', borderRadius: 20, }}></Image>
                         :
-                        <Text>이미지 없음</Text>
+                        <Text style={{ fontFamily: 'DoHyeon-Regular' }}>관련 이미지 없음</Text>
                     }
                 </View>
-                <Text numberOfLines={1} style={{ fontWeight: 'bold', marginTop: 3 }}>{prop.name}</Text>
+                <Text numberOfLines={1} style={{ fontWeight: 'bold', marginTop: 3 }}>{prop.name.replace(' ', '')}</Text>
                 <Text numberOfLines={1} style={{ marginTop: 3 }}>{prop.where}</Text>
             </View>
         </TouchableWithoutFeedback>
@@ -150,18 +137,8 @@ const ChoiItem = (prop) => {
     const navigation = useNavigation()
 
     const [productN, setProductN] = useRecoilState(productName)
+    const [atomImg, setAtomImg] = useRecoilState(productImg)
     const [atomCurList, setatomCurList] = useRecoilState(productCurList)
-
-    const storeData = async (value) => {
-        try {
-            const jsonValue = JSON.stringify(value)
-            await AsyncStorage.setItem('@choi_list', jsonValue)
-            console.log('저장완료')
-        } catch (e) {
-            // saving error
-            console.log(e)
-        }
-    }
 
 
     if (prop.img == '/images/common/no_img.gif') {
@@ -170,20 +147,22 @@ const ChoiItem = (prop) => {
         var uri = prop.img
     }
 
-    return (
-        <TouchableWithoutFeedback onPress={() => {
 
-        }
-        }
+    return (
+        <TouchableWithoutFeedback
+            onPress={() => {
+                setProductN(prop.name)
+                setAtomImg(prop.img)
+                setTimeout(() => {
+                    navigation.navigate('가격비교')
+                }, 200);
+            }}
             onLongPress={(e) => {
                 console.log(prop.id),
                     setatomCurList((ex) => [
                         ...ex.slice(0, prop.id),
                         ...ex.slice(prop.id + 1, ex.length)
                     ])
-
-                storeData(atomCurList)
-                storeData(atomCurList)
 
             }}
         >
@@ -192,10 +171,10 @@ const ChoiItem = (prop) => {
                     {uri != '' ?
                         <Image source={{ uri: uri }} style={{ width: '100%', height: '100%', borderRadius: 20, }}></Image>
                         :
-                        <Text>이미지 없음</Text>
+                        <Text style={{ fontFamily: 'DoHyeon-Regular' }}>관련 이미지 없음</Text>
                     }
                 </View>
-                <Text numberOfLines={1} style={{ fontWeight: 'bold', marginTop: 3 }}>{prop.name}</Text>
+                <Text numberOfLines={1} style={{ fontWeight: 'bold', marginTop: 3 }}>{prop.name.replace(' ', '')}</Text>
 
             </View>
         </TouchableWithoutFeedback>
@@ -221,6 +200,8 @@ const ChoiPush = () => {
 
 
 
+
+
 const Jjim = () => {
     const navigation = useNavigation()
 
@@ -229,7 +210,19 @@ const Jjim = () => {
     const [atomList, setatomList] = useRecoilState(productList)
     const [atomCurList, setatomCurList] = useRecoilState(productCurList)
 
+    useEffect(() => {
+        console.log('effect확인 ===' + JSON.stringify(atomCurList))
+        storeData(atomCurList)
+    }, [atomCurList])
+
+    useEffect(() => {
+        console.log('effect확인 ===' + JSON.stringify(atomList))
+        storeData_jjim(atomList)
+    }, [atomList])
+
     const storeData = async (value) => {
+        console.log('데이터 확인' + JSON.stringify(value))
+
         try {
             const jsonValue = JSON.stringify(value)
             await AsyncStorage.setItem('@choi_list', jsonValue)
@@ -240,6 +233,16 @@ const Jjim = () => {
         }
     }
 
+    const storeData_jjim = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value)
+            await AsyncStorage.setItem('@jjim_list', jsonValue)
+            console.log('저장완료')
+        } catch (e) {
+            // saving error
+            console.log(e)
+        }
+    }
 
     return (
         <View style={{ width: '100%', height: '100%' }}>
@@ -252,7 +255,7 @@ const Jjim = () => {
                     </View>
 
                     <TouchableWithoutFeedback onPress={() => {
-                        setatomList((ex) => [...ex,
+                        setatomList([...atomList,
                         {
                             name: '테스트',
                             where: '네이버',
@@ -260,7 +263,7 @@ const Jjim = () => {
                         }
                         ])
 
-                        setatomCurList((ex) => [...ex,
+                        setatomCurList([...atomCurList,
                         {
                             name: '테스트',
                             img: ''

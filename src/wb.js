@@ -66,8 +66,12 @@ const Wb = () => {
         return unsubscribe;
     }, [navigation]);
 
+    useEffect(() => {
+        console.log('effect확인 ===' + JSON.stringify(atomList))
+        storeData_jjim(atomList)
+    }, [atomList])
 
-    const storeData = async (value) => {
+    const storeData_jjim = async (value) => {
         try {
             const jsonValue = JSON.stringify(value)
             await AsyncStorage.setItem('@jjim_list', jsonValue)
@@ -97,7 +101,7 @@ const Wb = () => {
         ])
         setProductN('')
         setAtomImg('')
-        storeData(atomList)
+
         Alert.alert('저장완료')
         navigation.navigate('바코드체크')
     }
