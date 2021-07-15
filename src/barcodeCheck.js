@@ -271,7 +271,13 @@ const BarcodeCheck = () => {
 
 
 
-            <TouchableWithoutFeedback onPress={() => { navigation.navigate('가격비교', { pname: '' }) }}>
+            <TouchableWithoutFeedback onPress={() => {
+                setProductN('')
+                setTimeout(() => {
+                    navigation.navigate('가격비교')
+
+                }, 300);
+            }}>
                 <View style={{ position: 'absolute' }}>
                     <Text style={{ color: 'orange', margin: 10, fontSize: 18 }}>직접입력</Text>
                 </View>
