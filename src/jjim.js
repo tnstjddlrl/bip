@@ -22,6 +22,7 @@ import { productCurList, productList, productName } from '../atom/atoms';
 import { useNavigation } from '@react-navigation/native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { FlingGestureHandler, Directions, State } from 'react-native-gesture-handler';
 
 
 const chwidth = Dimensions.get('window').width
@@ -307,23 +308,37 @@ const Jjim = () => {
 
                 {/* 찜한 상품 시작 */}
                 {state == 'jjim' &&
-                    <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-                        <View style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
-                            <JjimPush></JjimPush>
+                    <FlingGestureHandler direction={Directions.LEFT}
+                        onHandlerStateChange={({ nativeEvent }) => {
+                            if (nativeEvent.state === State.ACTIVE) {
+                                setState('choi')
+                            }
+                        }}>
+                        <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
+                            <View style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
+                                <JjimPush></JjimPush>
 
-                        </View>
+                            </View>
 
-                    </ScrollView>
+                        </ScrollView>
+                    </FlingGestureHandler>
                 }
                 {/* 찜한 상품 끝 */}
 
                 {/* 최근 본 상품 시작 */}
                 {state == 'choi' &&
-                    <ScrollView style={{ flex: 1, backgroundColor: 'skyblue' }}>
-                        <View style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
-                            <ChoiPush></ChoiPush>
-                        </View>
-                    </ScrollView>
+                    <FlingGestureHandler direction={Directions.RIGHT}
+                        onHandlerStateChange={({ nativeEvent }) => {
+                            if (nativeEvent.state === State.ACTIVE) {
+                                setState('jjim')
+                            }
+                        }}>
+                        <ScrollView style={{ flex: 1, backgroundColor: 'skyblue' }}>
+                            <View style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
+                                <ChoiPush></ChoiPush>
+                            </View>
+                        </ScrollView>
+                    </FlingGestureHandler>
                 }
                 {/* 최근 본 상품 끝 */}
 
