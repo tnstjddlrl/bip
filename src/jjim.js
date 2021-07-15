@@ -22,7 +22,11 @@ import { productCurList, productImg, productList, productName } from '../atom/at
 import { useNavigation } from '@react-navigation/native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { FlingGestureHandler, Directions, State } from 'react-native-gesture-handler';
+
+
+import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
+
+const adUnitId = 'ca-app-pub-8664195159890176/9599301349';
 
 
 const chwidth = Dimensions.get('window').width
@@ -102,7 +106,7 @@ const JjimItem = (prop) => {
 
             }}
         >
-            <View style={{ width: chwidth / 3 - 20, justifyContent: 'center', alignItems: 'center', marginTop: 35, marginLeft: 15 }}>
+            <View style={{ width: chwidth / 3 - 20, justifyContent: 'center', alignItems: 'center', marginTop: 25, marginLeft: 15 }}>
                 <View style={{ width: chwidth / 3 - 20, height: chwidth / 3 - 20, borderRadius: 20, borderWidth: 1, borderColor: 'gray', justifyContent: 'center', alignItems: 'center' }}>
                     {uri != '' ?
                         <Image source={{ uri: uri }} style={{ width: '100%', height: '100%', borderRadius: 20, }}></Image>
@@ -166,7 +170,7 @@ const ChoiItem = (prop) => {
 
             }}
         >
-            <View style={{ width: chwidth / 3 - 20, justifyContent: 'center', alignItems: 'center', marginTop: 35, marginLeft: 15 }}>
+            <View style={{ width: chwidth / 3 - 20, justifyContent: 'center', alignItems: 'center', marginTop: 25, marginLeft: 15 }}>
                 <View style={{ width: chwidth / 3 - 20, height: chwidth / 3 - 20, borderRadius: 20, borderWidth: 1, borderColor: 'gray', justifyContent: 'center', alignItems: 'center' }}>
                     {uri != '' ?
                         <Image source={{ uri: uri }} style={{ width: '100%', height: '100%', borderRadius: 20, }}></Image>
@@ -252,9 +256,11 @@ const Jjim = () => {
             {/* 헤더 시작 */}
             <View style={{ backgroundColor: '#6E6E6E', width: '100%', height: '8%', alignItems: 'center', justifyContent: 'center' }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '95%', alignItems: 'center' }}>
-                    <View style={{ width: '21%' }}>
-                        <Icon name='ios-arrow-back-sharp' color='orange' style={{ fontSize: 40 }}></Icon>
-                    </View>
+                    <TouchableWithoutFeedback onPress={() => { navigation.goBack() }}>
+                        <View style={{ width: '20%' }}>
+                            <Icon name='ios-arrow-back-sharp' color='orange' style={{ fontSize: 40 }}></Icon>
+                        </View>
+                    </TouchableWithoutFeedback>
 
                     <TouchableWithoutFeedback onPress={() => {
                         setatomList([...atomList,
@@ -335,6 +341,16 @@ const Jjim = () => {
                     {/* 최근 본 상품 끝 */}
 
                 </ScrollView>
+
+                <View style={{ width: chwidth }}>
+                    <BannerAd
+                        unitId={adUnitId}
+                        size={BannerAdSize.ADAPTIVE_BANNER}
+                        requestOptions={{
+                            requestNonPersonalizedAdsOnly: true,
+                        }}
+                    />
+                </View>
 
             </View>
             {/* 본문 끝 */}
