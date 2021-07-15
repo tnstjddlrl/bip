@@ -64,6 +64,46 @@ const Coupang_wb = () => {
         return unsubscribe;
     }, [navigation]);
 
+
+    useEffect(() => {
+        console.log('effect확인 ===' + JSON.stringify(atomList))
+        storeData_jjim(atomList)
+    }, [atomList])
+
+    const storeData_jjim = async (value) => {
+        try {
+            const jsonValue = JSON.stringify(value)
+            await AsyncStorage.setItem('@jjim_list', jsonValue)
+            console.log('저장완료')
+        } catch (e) {
+            // saving error
+            console.log(e)
+        }
+    }
+
+    function savelist() {
+        for (var i = 0; i < atomList.length; i++) {
+            if (atomList[i].name == productN) {
+                Alert.alert('이미 제품이 찜목록에 존재합니다.')
+                navigation.goBack()
+                return
+            }
+        }
+
+        setatomList((ex) => [...ex,
+        {
+            name: productN,
+            where: '쿠팡',
+            img: atomImg
+        }
+        ])
+        setProductN('')
+        setAtomImg('')
+
+        Alert.alert('저장완료')
+        navigation.navigate('바코드체크')
+    }
+
     return (
         <View style={{ width: '100%', height: '100%' }}>
 
@@ -79,18 +119,7 @@ const Coupang_wb = () => {
                     </View>
 
                     <TouchableWithoutFeedback onPress={() => {
-                        console.log(productN + atomImg)
-                        setatomList((ex) => [...ex,
-                        {
-                            name: productN,
-                            where: '쿠팡',
-                            img: atomImg
-                        }
-                        ]),
-                            setProductN(''),
-                            setAtomImg('')
-                            , Alert.alert('저장완료')
-                            , navigation.navigate('바코드체크')
+                        savelist()
                     }}>
                         <View style={{ width: '20%', borderRadius: 10, backgroundColor: '#ffe6b3', alignItems: 'center', justifyContent: 'center' }}>
                             <Text style={{ fontSize: 20, color: 'orange', fontWeight: 'bold', margin: 5 }}>찜하기</Text>
