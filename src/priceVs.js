@@ -54,26 +54,29 @@ const PriceVs = () => {
         <View style={{ width: '100%', height: '100%', backgroundColor: '#FFFAFA' }}>
 
             <View style={{ height: '92%' }}>
-                {/* 본문 */}
-                <ScrollView style={{ flex: 1 }}>
 
-                    {/* 헤더 시작 */}
-                    <View style={{ backgroundColor: '#6E6E6E' }}>
-                        <View style={{ flexDirection: 'row', marginTop: 10, marginBottom: 10 }}>
-                            <View style={{ width: '20%', alignItems: 'center' }}>
-                                <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}>B</Text>
-                            </View>
-                            <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20, width: '75%', backgroundColor: '#DCDCDC' }}>
-                                <TextInput ref={tip} style={{ color: 'black', marginLeft: 10 }} placeholder={'직접 입력해주세요.'} onChangeText={(txt) => { setName(txt), setProductN(txt), console.log(txt) }} value={name}></TextInput>
-                                <TouchableWithoutFeedback onPress={() => { setName(''), setProductN('') }}>
-                                    <View style={{ position: 'absolute', right: '5%', top: '25%', alignItems: 'center' }}><Icon name='close-circle' color={'gray'} style={{ fontSize: 20 }}></Icon></View>
-                                </TouchableWithoutFeedback>
-                            </View>
+                {/* 헤더 시작 */}
+                <View style={{ backgroundColor: '#6E6E6E' }}>
+                    <View style={{ flexDirection: 'row', marginTop: 10, marginBottom: 10 }}>
+                        <View style={{ width: '20%', alignItems: 'center' }}>
+                            <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}>B</Text>
+                        </View>
+                        <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20, width: '75%', backgroundColor: '#DCDCDC' }}>
+                            <TextInput ref={tip} style={{ color: 'black', marginLeft: 10 }} placeholder={'직접 입력해주세요.'} onChangeText={(txt) => { setName(txt), setProductN(txt), console.log(txt) }} value={name}></TextInput>
+                            <TouchableWithoutFeedback onPress={() => { setName(''), setProductN('') }}>
+                                <View style={{ position: 'absolute', right: '5%', top: '25%', alignItems: 'center' }}><Icon name='close-circle' color={'gray'} style={{ fontSize: 20 }}></Icon></View>
+                            </TouchableWithoutFeedback>
                         </View>
                     </View>
+                </View>
 
-                    <View style={{ borderWidth: 0.7, borderColor: 'gray', width: '100%' }}></View>
-                    {/* 헤더 끝 */}
+                <View style={{ borderWidth: 0.7, borderColor: 'gray', width: '100%' }}></View>
+                {/* 헤더 끝 */}
+
+
+
+                {/* 본문 */}
+                <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
 
                     {/* 가격 비교 버튼 시작 */}
                     <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%' }}>
