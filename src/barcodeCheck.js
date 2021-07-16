@@ -32,7 +32,6 @@ const chheight = Dimensions.get('screen').height
 
 var checkappboot = 0
 
-
 const BarcodeCheck = () => {
     const navigation = useNavigation()
 
@@ -152,10 +151,22 @@ const BarcodeCheck = () => {
             }
         }
 
+        var date = new Date().getDate(); //Current Date
+        var month = new Date().getMonth() + 1; //Current Month
+
+        if (String(date).length == 1) {
+            date = '0' + date
+        }
+
+        if (String(month).length == 1) {
+            month = '0' + month
+        }
+
         setatomCurList((ex) => [...ex,
         {
             name: productN,
-            img: atomImg
+            img: atomImg,
+            date: month + '-' + date
         }
         ])
 

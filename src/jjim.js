@@ -179,6 +179,7 @@ const ChoiItem = (prop) => {
                     }
                 </View>
                 <Text numberOfLines={1} style={{ fontWeight: 'bold', marginTop: 3 }}>{prop.name.replace(' ', '')}</Text>
+                <Text>{prop.date}</Text>
 
             </View>
         </TouchableWithoutFeedback>
@@ -193,7 +194,7 @@ const ChoiPush = () => {
     var List = []
 
     for (var i = 0; i < atomCurList.length; i++) {
-        List.push(<ChoiItem key={i} id={i} name={atomCurList[i].name} img={atomCurList[i].img}></ChoiItem>)
+        List.push(<ChoiItem key={i} id={i} name={atomCurList[i].name} img={atomCurList[i].img} date={atomCurList[i].date}></ChoiItem>)
     }
 
     console.log(atomCurList)
@@ -271,10 +272,19 @@ const Jjim = () => {
                         }
                         ])
 
+                        var date = new Date().getDate(); //Current Date
+                        var month = new Date().getMonth() + 1; //Current Month
+
+                        if (String(month).length == 1) {
+                            month = '0' + month
+                        }
+
                         setatomCurList([...atomCurList,
                         {
                             name: '테스트',
-                            img: ''
+                            img: '',
+                            date: month + '-' + date
+
                         }
                         ])
 
