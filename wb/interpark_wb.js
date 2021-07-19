@@ -14,6 +14,9 @@ import {
 
 } from 'react-native';
 
+if (Text.defaultProps == null) Text.defaultProps = {};
+Text.defaultProps.allowFontScaling = false;
+
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { WebView } from 'react-native-webview';

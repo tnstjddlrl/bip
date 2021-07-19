@@ -16,6 +16,9 @@ import {
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
+if (Text.defaultProps == null) Text.defaultProps = {};
+Text.defaultProps.allowFontScaling = false;
+
 
 
 import { RNCamera } from 'react-native-camera';

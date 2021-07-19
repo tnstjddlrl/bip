@@ -15,6 +15,9 @@ import {
     Image
 } from 'react-native';
 
+if (Text.defaultProps == null) Text.defaultProps = {};
+Text.defaultProps.allowFontScaling = false;
+
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { useRecoilState } from 'recoil';
@@ -25,6 +28,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
+
+import mainlogo from '../img/mainlogo.png'
+
+import AutoHeightImage from 'react-native-auto-height-image';
 
 const adUnitId = 'ca-app-pub-8664195159890176/9599301349';
 
@@ -289,9 +296,7 @@ const Jjim = () => {
                         ])
 
                     }}>
-                        <View style={{ width: '20%', alignItems: 'center' }}>
-                            <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}>B</Text>
-                        </View>
+                        <AutoHeightImage source={mainlogo} width={chwidth / 8}></AutoHeightImage>
                     </TouchableWithoutFeedback>
 
                     <TouchableWithoutFeedback onPress={() => {

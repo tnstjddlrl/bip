@@ -12,6 +12,9 @@ import {
     TouchableWithoutFeedback,
 } from 'react-native';
 
+if (Text.defaultProps == null) Text.defaultProps = {};
+Text.defaultProps.allowFontScaling = false;
+
 import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { useNavigation } from '@react-navigation/native';
@@ -61,8 +64,8 @@ const PriceVs = () => {
                         <View style={{ width: '20%', alignItems: 'center' }}>
                             <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}>B</Text>
                         </View>
-                        <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20, width: '75%', backgroundColor: '#DCDCDC' }}>
-                            <TextInput ref={tip} style={{ color: 'black', marginLeft: 10 }} placeholder={'직접 입력해주세요.'} onChangeText={(txt) => { setName(txt), setProductN(txt), console.log(txt) }} value={name}></TextInput>
+                        <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20, width: '75%', backgroundColor: '#DCDCDC', alignItems: 'center', justifyContent: 'center' }}>
+                            <TextInput ref={tip} style={{ color: 'black', marginLeft: 10, width: '100%' }} placeholder={'직접 입력해주세요.'} onChangeText={(txt) => { setName(txt), setProductN(txt), console.log(txt) }} value={name}></TextInput>
                             <TouchableWithoutFeedback onPress={() => { setName(''), setProductN('') }}>
                                 <View style={{ position: 'absolute', right: '5%', top: '25%', alignItems: 'center' }}><Icon name='close-circle' color={'gray'} style={{ fontSize: 20 }}></Icon></View>
                             </TouchableWithoutFeedback>
