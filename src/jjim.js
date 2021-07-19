@@ -29,10 +29,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
 
-import mainlogo from '../img/mainlogo.png'
-
-import AutoHeightImage from 'react-native-auto-height-image';
-
 const adUnitId = 'ca-app-pub-8664195159890176/9599301349';
 
 
@@ -296,7 +292,10 @@ const Jjim = () => {
                         ])
 
                     }}>
-                        <AutoHeightImage source={mainlogo} width={chwidth / 8}></AutoHeightImage>
+                        <View style={{ width: '20%', alignItems: 'center', justifyContent: 'center' }}>
+                            <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}><Icon style={{ fontSize: 40 }} name="cart-sharp"></Icon></Text>
+                            <Text style={{ fontSize: 20, fontWeight: 'bold', position: 'absolute', top: '8%', left: '45%' }}>P</Text>
+                        </View>
                     </TouchableWithoutFeedback>
 
                     <TouchableWithoutFeedback onPress={() => {
