@@ -8,7 +8,9 @@ import {
   Text,
   useColorScheme,
   View,
-  Dimensions
+  Dimensions,
+  Linking,
+  Alert
 } from 'react-native';
 
 import {
@@ -17,6 +19,8 @@ import {
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
+import VersionCheck from 'react-native-version-check';
 
 import barcodeCheck from './src/barcodeCheck';
 import PriceVs from './src/priceVs';
@@ -32,6 +36,29 @@ import Oost_wb from './wb/oost_wb';
 const Stack = createStackNavigator();
 
 export default APP = () => {
+
+  console.log(VersionCheck.getPackageName());        // com.reactnative.app
+  console.log(VersionCheck.getCurrentBuildNumber()); // 10
+  console.log(VersionCheck.getCurrentVersion());     // 0.1.1
+
+  VersionCheck.needUpdate()
+    .then(async res => {
+      console.log(res.isNeeded);    // true
+      if (res.isNeeded) {
+        Alert.alert('앱을 업데이트 해주세요!', '최신 기능을 사용하기 위해선 어플 업데이트가 필요합니다!',
+          [
+            {
+              text: "나중에",
+              onPress: () => console.log("Cancel Pressed"),
+            },
+            { text: "업데이트", onPress: () => Linking.openURL(res.storeUrl) }
+          ]
+        )
+      } else {
+        console.log('최신버전!')
+      }
+    });
+
   return (
     <RecoilRoot>
       <NavigationContainer>
