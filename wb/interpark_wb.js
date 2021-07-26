@@ -120,7 +120,8 @@ const Interpart_wb = () => {
                     </TouchableWithoutFeedback>
 
                     <View style={{ width: '20%', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}>B</Text>
+                        <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}><Icon style={{ fontSize: 40 }} name="cart-sharp"></Icon></Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', position: 'absolute', top: '8%', left: '45%' }}>P</Text>
                     </View>
 
                     <TouchableWithoutFeedback onPress={() => {
