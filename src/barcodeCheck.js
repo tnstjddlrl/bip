@@ -251,10 +251,9 @@ const BarcodeCheck = () => {
                             if (productN != '') {
                                 savechoi()
                             }
-
                         }}>
-                            <View style={{ width: chwidth - 40, height: '24%', borderRadius: 20, marginTop: '3%', marginLeft: 20, backgroundColor: productN === '' ? '#d9d9d9' : 'orange', alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ color: productN === '' ? 'black' : 'white', elevation: productN === '' ? 0 : 10, fontSize: 18 }}>최저가 비교</Text>
+                            <View style={{ width: chwidth - 40, height: '24%', borderRadius: 10, marginTop: '3%', marginLeft: 20, elevation: productN === '' ? 0 : 10, backgroundColor: productN === '' ? '#d9d9d9' : 'orange', alignItems: 'center', justifyContent: 'center' }}>
+                                <Text style={{ color: productN === '' ? 'black' : 'white', fontSize: 18 }}>최저가 비교</Text>
                             </View>
                         </TouchableWithoutFeedback>
                     </View>
