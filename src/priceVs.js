@@ -34,6 +34,8 @@ const gmarket = require('../img/gmarket_logo.png')
 const oost = require('../img/oost_logo.png')
 const auction = require('../img/auction_logo.png')
 const interpark = require('../img/interpark_logo.png')
+const google = require('../img/google.png')
+const google_logo = require('../img/google-logo.png')
 
 
 const PriceVs = () => {
@@ -61,8 +63,9 @@ const PriceVs = () => {
                 {/* 헤더 시작 */}
                 <View style={{ backgroundColor: '#6E6E6E' }}>
                     <View style={{ flexDirection: 'row', marginTop: 10, marginBottom: 10 }}>
-                        <View style={{ width: '20%', alignItems: 'center' }}>
-                            <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}>B</Text>
+                        <View style={{ width: '20%', alignItems: 'center', marginTop: 5 }}>
+                            <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}><Icon style={{ fontSize: 40 }} name="cart-sharp"></Icon></Text>
+                            <Text style={{ fontSize: 20, fontWeight: 'bold', position: 'absolute', top: '8%', left: '45%' }}>P</Text>
                         </View>
                         <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20, width: '75%', backgroundColor: '#DCDCDC', alignItems: 'center', justifyContent: 'center' }}>
                             <TextInput ref={tip} style={{ color: 'black', marginLeft: 10, width: '100%' }} placeholder={'직접 입력해주세요.'} onChangeText={(txt) => { setName(txt), setProductN(txt), console.log(txt) }} value={name}></TextInput>
@@ -84,7 +87,7 @@ const PriceVs = () => {
                     {/* 가격 비교 버튼 시작 */}
                     <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%' }}>
 
-                        <View style={{ marginTop: 40 }}></View>
+                        <View style={{ marginTop: 30 }}></View>
 
                         {/* 한줄 */}
                         <View style={{ width: '90%', flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20 }}>
@@ -134,9 +137,9 @@ const PriceVs = () => {
                             <TouchableWithoutFeedback onPress={() => { setName(productN), navigation.navigate('11번가웹뷰') }}>
                                 <View style={{ alignItems: 'center' }}>
                                     <View style={{ borderWidth: 1, borderRadius: 20, borderColor: 'gray' }}>
-                                        <AutoHeightImage style={{ borderRadius: 20, margin: 0.1, backgroundColor: 'white' }} source={oost} width={chwidth / 2 - 80}></AutoHeightImage>
+                                        <AutoHeightImage style={{ borderRadius: 20, margin: 0.1, backgroundColor: 'white' }} source={google_logo} width={chwidth / 2 - 80}></AutoHeightImage>
                                     </View>
-                                    <Text style={{ marginTop: 10 }}>11번가</Text>
+                                    <Text style={{ marginTop: 10 }}>구글</Text>
                                 </View>
                             </TouchableWithoutFeedback>
 

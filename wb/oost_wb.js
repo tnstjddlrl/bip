@@ -41,8 +41,8 @@ const Oost_wb = () => {
 
     const barcodeimg = require('../img/barcode_img.png')
 
-    // var uri = 'http://search.11st.co.kr/MW/search?searchKeyword=' + productN
-    var uri = 'http://search.11st.co.kr/MW/search?searchKeyword=' + productN + 'SearchKeyword=' + productN + '#_filte'
+    // var uri = 
+    var uri = 'https://www.google.com/search?q=' + productN + '&sxsrf=ALeKk00Ivjwv1vUWANGVhTd_wTvBZdI-tQ:1627260896226&source=lnms&tbm=shop&sa=X&ved=2ahUKEwiFibSdw__xAhWZEIgKHcPjALMQ_AUoBHoECAEQBg&biw=1608&bih=981'
     const [key, setKey] = useState(1)
 
     useEffect(() => {
@@ -119,7 +119,8 @@ const Oost_wb = () => {
                         </View>
                     </TouchableWithoutFeedback>
                     <View style={{ width: '20%', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}>B</Text>
+                        <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}><Icon style={{ fontSize: 40 }} name="cart-sharp"></Icon></Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', position: 'absolute', top: '8%', left: '45%' }}>P</Text>
                     </View>
 
                     <TouchableWithoutFeedback onPress={() => {
