@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo, useCallback } from 'react';
 const cheerio = require('cheerio');
 import {
     SafeAreaView,
@@ -16,9 +16,14 @@ import {
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import {
+    BottomSheetModal,
+    BottomSheetModalProvider,
+} from '@gorhom/bottom-sheet';
+
+
 if (Text.defaultProps == null) Text.defaultProps = {};
 Text.defaultProps.allowFontScaling = false;
-
 
 
 import { RNCamera } from 'react-native-camera';
@@ -46,6 +51,20 @@ const BarcodeCheck = () => {
 
     const [atomCurList, setatomCurList] = useRecoilState(productCurList)
     const [atomList, setatomList] = useRecoilState(productList)
+
+
+    const bottomSheetModalRef = useRef(< BottomSheetModal ></BottomSheetModal>);
+
+    // variables
+    const snapPoints = useMemo(() => ['40%'], []);
+
+    // callbacks
+    const handlePresentModalPress = useCallback(() => {
+        bottomSheetModalRef.current?.present();
+    }, []);
+    const handleSheetChanges = useCallback((index) => {
+        console.log('handleSheetChanges', index);
+    }, []);
 
 
 
@@ -182,122 +201,138 @@ const BarcodeCheck = () => {
 
 
     return (
-        <View style={{ width: '100%', height: '100%' }}>
+        <BottomSheetModalProvider>
+            <View style={{ width: '100%', height: '100%' }}>
 
-            <View style={{ width: '100%', height: '92%' }}>
-                <View style={{ width: '100%', height: '70%' }}>
+                <View style={{ width: '100%', height: '92%' }}>
+                    <View style={{ width: '100%', height: '70%' }}>
 
-                    <RNCamera
-                        ref={camera}
-                        style={{ width: chwidth, height: '100%', alignSelf: "center" }}
-                        type={RNCamera.Constants.Type.back}
-                        flashMode={RNCamera.Constants.FlashMode.auto}
-                        androidCameraPermissionOptions={{
-                            title: '카메라 사용 권한',
-                            message: '카메라 사용 권한 허용이 필요합니다.',
-                            buttonPositive: '확인',
-                            buttonNegative: '거절',
-                        }}
+                        <RNCamera
+                            ref={camera}
+                            style={{ width: chwidth, height: '100%', alignSelf: "center" }}
+                            type={RNCamera.Constants.Type.back}
+                            flashMode={RNCamera.Constants.FlashMode.auto}
+                            androidCameraPermissionOptions={{
+                                title: '카메라 사용 권한',
+                                message: '카메라 사용 권한 허용이 필요합니다.',
+                                buttonPositive: '확인',
+                                buttonNegative: '거절',
+                            }}
 
-                        onBarCodeRead={(data) => {
-                            setBarcc(data.data)
-                            barcodeCheck(data.data)
-                        }}>
-                        <BarcodeMask
-                            width={'80%'} height={'50%'} showAnimatedLine={true} outerMaskOpacity={0.8}
-                        />
-                    </RNCamera>
+                            onBarCodeRead={(data) => {
+                                setBarcc(data.data)
+                                barcodeCheck(data.data)
+                            }}>
+                            <BarcodeMask
+                                width={'80%'} height={'50%'} showAnimatedLine={true} outerMaskOpacity={0.8}
+                            />
+                        </RNCamera>
 
-                </View>
-
-                <View style={{ width: '100%', height: '30%', backgroundColor: 'white' }}>
-                    <View style={{ height: '60%' }}>
-                        <View style={{ width: chwidth - 40, marginLeft: 20, alignItems: 'center', flexDirection: 'row', marginTop: '3%' }}>
-                            <Text><Icon style={{ fontSize: 45, color: productN === '' ? 'gray' : 'orange' }} name="barcode-sharp" color="black" /> </Text><Text style={{}}> :   {barcc}</Text>
-                        </View>
-
-                        {productN != '' ?
-                            <View style={{ width: chwidth - 40, marginLeft: 20, alignItems: 'center', flexDirection: 'row' }}>
-                                <Text><Icon style={{ fontSize: 45, color: 'orange' }} name="basket-sharp" color="black" /></Text><Text>  :   {productN}</Text>
-                            </View>
-                            :
-                            <View style={{ width: chwidth - 40, marginLeft: 20, alignItems: 'center', flexDirection: 'row' }}>
-                                <Text><Icon style={{ fontSize: 45 }} name="basket-sharp" color="gray" /></Text><Text>  :   상품 검색중!</Text>
-                            </View>
-                        }
                     </View>
 
-                    <TouchableWithoutFeedback onPress={() => {
-                        if (productN != '') {
-                            savechoi()
-                        }
+                    <View style={{ width: '100%', height: '30%', backgroundColor: 'white' }}>
+                        <View style={{ height: '60%' }}>
+                            <View style={{ width: chwidth - 40, marginLeft: 20, alignItems: 'center', flexDirection: 'row', marginTop: '3%' }}>
+                                <Text><Icon style={{ fontSize: 45, color: productN === '' ? 'gray' : 'orange' }} name="barcode-sharp" color="black" /> </Text><Text style={{}}> :   {barcc}</Text>
+                            </View>
 
-                    }}>
-                        <View style={{ width: chwidth - 40, height: '24%', borderRadius: 20, marginTop: '3%', marginLeft: 20, backgroundColor: productN === '' ? '#d9d9d9' : 'orange', alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={{ color: productN === '' ? 'black' : 'white', elevation: productN === '' ? 0 : 10, fontSize: 18 }}>최저가 비교</Text>
+                            {productN != '' ?
+                                <View style={{ width: chwidth - 40, marginLeft: 20, alignItems: 'center', flexDirection: 'row' }}>
+                                    <Text><Icon style={{ fontSize: 45, color: 'orange' }} name="basket-sharp" color="black" /></Text><Text>  :   {productN}</Text>
+                                </View>
+                                :
+                                <View style={{ width: chwidth - 40, marginLeft: 20, alignItems: 'center', flexDirection: 'row' }}>
+                                    <Text><Icon style={{ fontSize: 45 }} name="basket-sharp" color="gray" /></Text><Text>  :   상품 검색중!</Text>
+                                </View>
+                            }
                         </View>
-                    </TouchableWithoutFeedback>
-                </View>
 
-                <View style={{ width: '100%', height: '9%', backgroundColor: '#ffe6b3', justifyContent: 'center', alignItems: 'center' }}>
+                        <TouchableWithoutFeedback onPress={() => {
+                            if (productN != '') {
+                                savechoi()
+                            }
 
-                    <View style={{ width: '80%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
-
-                        <TouchableWithoutFeedback onPress={() => { }}>
-                            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                <Text><Icon style={{ fontSize: 30, color: '#e64d00' }} name="barcode-sharp" color="black"></Icon></Text>
-                                <Text style={{ color: '#e64d00' }}>바코드</Text>
+                        }}>
+                            <View style={{ width: chwidth - 40, height: '24%', borderRadius: 20, marginTop: '3%', marginLeft: 20, backgroundColor: productN === '' ? '#d9d9d9' : 'orange', alignItems: 'center', justifyContent: 'center' }}>
+                                <Text style={{ color: productN === '' ? 'black' : 'white', elevation: productN === '' ? 0 : 10, fontSize: 18 }}>최저가 비교</Text>
                             </View>
                         </TouchableWithoutFeedback>
+                    </View>
 
-                        <TouchableWithoutFeedback onPress={() => navigation.navigate('가격비교')}>
-                            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="pricetags-outline" color="black"></Icon></Text>
-                                <Text style={{ color: '#e69900' }}>가격비교</Text>
-                            </View>
-                        </TouchableWithoutFeedback>
+                    <View style={{ width: '100%', height: '9%', backgroundColor: '#ffe6b3', justifyContent: 'center', alignItems: 'center' }}>
+
+                        <View style={{ width: '80%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', }}>
+
+                            <TouchableWithoutFeedback onPress={() => { }}>
+                                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                    <Text><Icon style={{ fontSize: 30, color: '#e64d00' }} name="barcode-sharp" color="black"></Icon></Text>
+                                    <Text style={{ color: '#e64d00' }}>바코드</Text>
+                                </View>
+                            </TouchableWithoutFeedback>
+
+                            <TouchableWithoutFeedback onPress={() => navigation.navigate('가격비교')}>
+                                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                    <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="pricetags-outline" color="black"></Icon></Text>
+                                    <Text style={{ color: '#e69900' }}>가격비교</Text>
+                                </View>
+                            </TouchableWithoutFeedback>
 
 
-                        <TouchableWithoutFeedback onPress={() => navigation.navigate('찜목록')}>
-                            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="cart-outline" color="black"></Icon></Text>
-                                <Text style={{ color: '#e69900' }}>찜목록</Text>
-                            </View>
-                        </TouchableWithoutFeedback>
+                            <TouchableWithoutFeedback onPress={() => navigation.navigate('찜목록')}>
+                                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                    <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="cart-outline" color="black"></Icon></Text>
+                                    <Text style={{ color: '#e69900' }}>찜목록</Text>
+                                </View>
+                            </TouchableWithoutFeedback>
 
 
-                        {/* <TouchableWithoutFeedback onPress={() => navigation.navigate('더보기')}>
+                            {/* <TouchableWithoutFeedback onPress={() => navigation.navigate('더보기')}>
                             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                                 <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="grid-outline" color="black"></Icon></Text>
                                 <Text style={{ color: '#e69900' }}>더보기</Text>
                             </View>
                         </TouchableWithoutFeedback> */}
 
+                        </View>
+
+
                     </View>
 
 
+
                 </View>
 
 
+
+
+                <TouchableWithoutFeedback onPress={() => {
+                    handlePresentModalPress()
+                    // setProductN('')
+                    // setTimeout(() => {
+                    //     navigation.navigate('가격비교')
+
+                    // }, 300);
+
+
+                }}>
+                    <View style={{ position: 'absolute' }}>
+                        <Text style={{ color: 'orange', margin: 10, fontSize: 18 }}>직접입력</Text>
+                    </View>
+                </TouchableWithoutFeedback>
 
             </View>
 
-
-
-
-            <TouchableWithoutFeedback onPress={() => {
-                setProductN('')
-                setTimeout(() => {
-                    navigation.navigate('가격비교')
-
-                }, 300);
-            }}>
-                <View style={{ position: 'absolute' }}>
-                    <Text style={{ color: 'orange', margin: 10, fontSize: 18 }}>직접입력</Text>
+            <BottomSheetModal
+                ref={bottomSheetModalRef}
+                index={0}
+                snapPoints={snapPoints}
+                onChange={handleSheetChanges}
+            >
+                <View style={styles.contentContainer}>
+                    <Text>Awesome 🎉</Text>
                 </View>
-            </TouchableWithoutFeedback>
-
-        </View>
+            </BottomSheetModal>
+        </BottomSheetModalProvider>
     )
 }
 
