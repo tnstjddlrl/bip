@@ -284,34 +284,16 @@ const BarcodeCheck = () => {
                                 </View>
                             </TouchableWithoutFeedback>
 
-
-                            {/* <TouchableWithoutFeedback onPress={() => navigation.navigate('더보기')}>
-                            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                <Text><Icon style={{ fontSize: 30, color: '#e69900' }} name="grid-outline" color="black"></Icon></Text>
-                                <Text style={{ color: '#e69900' }}>더보기</Text>
-                            </View>
-                        </TouchableWithoutFeedback> */}
-
                         </View>
 
 
                     </View>
 
-
-
                 </View>
 
-
-
-
                 <TouchableWithoutFeedback onPress={() => {
+
                     handlePresentModalPress()
-                    // setProductN('')
-                    // setTimeout(() => {
-                    //     navigation.navigate('가격비교')
-
-                    // }, 300);
-
 
                 }}>
                     <View style={{ position: 'absolute' }}>
@@ -335,8 +317,5 @@ const BarcodeCheck = () => {
     )
 }
 
-
-const styles = StyleSheet.create({
-});
 
 export default BarcodeCheck
