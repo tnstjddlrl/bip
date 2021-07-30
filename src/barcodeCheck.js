@@ -11,7 +11,8 @@ import {
     View,
     Dimensions,
     Alert,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    TextInput
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -309,8 +310,18 @@ const BarcodeCheck = () => {
                 snapPoints={snapPoints}
                 onChange={handleSheetChanges}
             >
-                <View style={styles.contentContainer}>
-                    <Text>Awesome 🎉</Text>
+                <View style={{ width: '100%', height: '100%' }}>
+                    <View style={{ width: chwidth - 40, marginLeft: 20, borderWidth: 1, borderRadius: 50 }}>
+                        <View style={{ flexDirection: 'row', marginLeft: 10, width: chwidth - 60, marginTop: 10, marginBottom: 10, alignItems: 'center' }}>
+                            <Text><Icon style={{ fontSize: 30, color: '#e64d00' }} name="barcode-sharp" color="black"></Icon></Text>
+                            <TextInput placeholder="직접 입력" style={{ height: 40, marginLeft: 10 }}></TextInput>
+                        </View>
+                    </View>
+                    <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+                        <View style={{ width: chwidth - 40, marginLeft: 20, marginBottom: 20, height: 60, backgroundColor: 'orange', borderRadius: 10, alignItems: 'center', justifyContent: 'center', }}>
+                            <Text style={{ color: 'white', fontSize: 18 }}>최저가 비교</Text>
+                        </View>
+                    </View>
                 </View>
             </BottomSheetModal>
         </BottomSheetModalProvider>
