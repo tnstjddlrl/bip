@@ -266,37 +266,10 @@ const Jjim = () => {
                         </View>
                     </TouchableWithoutFeedback>
 
-                    <TouchableWithoutFeedback onPress={() => {
-                        setatomList([...atomList,
-                        {
-                            name: '테스트',
-                            where: '네이버',
-                            img: ''
-                        }
-                        ])
-
-                        var date = new Date().getDate(); //Current Date
-                        var month = new Date().getMonth() + 1; //Current Month
-
-                        if (String(month).length == 1) {
-                            month = '0' + month
-                        }
-
-                        setatomCurList([...atomCurList,
-                        {
-                            name: '테스트',
-                            img: '',
-                            date: month + '-' + date
-
-                        }
-                        ])
-
-                    }}>
-                        <View style={{ width: '20%', alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}><Icon style={{ fontSize: 40 }} name="cart-sharp"></Icon></Text>
-                            <Text style={{ fontSize: 20, fontWeight: 'bold', position: 'absolute', top: '8%', left: '45%' }}>P</Text>
-                        </View>
-                    </TouchableWithoutFeedback>
+                    <View style={{ width: '20%', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}><Icon style={{ fontSize: 40 }} name="cart-sharp"></Icon></Text>
+                        <Text style={{ fontSize: 20, fontWeight: 'bold', position: 'absolute', top: '8%', left: '45%' }}>P</Text>
+                    </View>
 
                     <TouchableWithoutFeedback onPress={() => {
                         if (state == 'jjim')
@@ -324,7 +297,7 @@ const Jjim = () => {
                     <TouchableWithoutFeedback onPress={() => { setState('jjim'), ii.current.scrollTo({ x: 0, y: 0 }) }}>
                         <Text style={{ fontSize: 25, color: state == 'jjim' ? '#e69900' : 'gray' }}>찜한 상품</Text>
                     </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback onPress={() => { setState('choi'), ii.current.scrollTo({ x: 400, y: 0 }) }}>
+                    <TouchableWithoutFeedback onPress={() => { setState('choi'), ii.current.scrollTo({ x: 800, y: 0 }) }}>
                         <Text style={{ fontSize: 25, color: state != 'jjim' ? '#e69900' : 'gray' }}>최근 본 상품</Text>
                     </TouchableWithoutFeedback>
                 </View>
@@ -335,7 +308,7 @@ const Jjim = () => {
                     onScroll={(res) => { if (res.nativeEvent.contentOffset.x < 150) setState('jjim'); else setState('choi'); }}
                 >
                     {/* 찜한 상품 시작 */}
-                    <ScrollView style={{ width: chwidth, height: '100%', backgroundColor: 'white' }}>
+                    <ScrollView style={{ width: chwidth, height: '100%' }}>
                         <View style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
                             <JjimPush></JjimPush>
 
@@ -347,7 +320,7 @@ const Jjim = () => {
                     <View style={{ height: '100%', borderWidth: 0.5, borderColor: 'gray' }}></View>
 
                     {/* 최근 본 상품 시작 */}
-                    <ScrollView style={{ width: chwidth, height: '100%', backgroundColor: 'white' }}>
+                    <ScrollView style={{ width: chwidth, height: '100%' }}>
                         <View style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
                             <ChoiPush></ChoiPush>
                         </View>

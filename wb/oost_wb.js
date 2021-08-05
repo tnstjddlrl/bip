@@ -103,7 +103,7 @@ const Oost_wb = () => {
         setProductN('')
         setAtomImg('')
 
-        Alert.alert('저장완료')
+        Alert.alert('찜 완료!')
         navigation.navigate('바코드체크')
     }
 

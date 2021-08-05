@@ -47,6 +47,8 @@ const BarcodeCheck = () => {
     const camera = useRef()
     const [barcc, setBarcc] = useState('바코드 탐지중!')
 
+    const [ziczup, setZiczup] = useState('')
+
     const [atomImg, setAtomImg] = useRecoilState(productImg)
     const [productN, setProductN] = useRecoilState(productName)
 
@@ -62,6 +64,9 @@ const BarcodeCheck = () => {
     // callbacks
     const handlePresentModalPress = useCallback(() => {
         bottomSheetModalRef.current?.present();
+    }, []);
+    const handlePresentModalcancel = useCallback(() => {
+        bottomSheetModalRef.current?.dismiss();
     }, []);
     const handleSheetChanges = useCallback((index) => {
         console.log('handleSheetChanges', index);
@@ -200,6 +205,42 @@ const BarcodeCheck = () => {
 
     }
 
+    function savechoi2() {
+
+        for (var i = 0; i < atomCurList.length; i++) {
+            if (atomCurList[i].name == ziczup) {
+                navigation.navigate('가격비교')
+                console.log('최근 본 목록에 이미 존재합니다.')
+                return
+            }
+        }
+
+        var date = new Date().getDate(); //Current Date
+        var month = new Date().getMonth() + 1; //Current Month
+
+        if (String(date).length == 1) {
+            date = '0' + date
+        }
+
+        if (String(month).length == 1) {
+            month = '0' + month
+        }
+
+        setatomCurList((ex) => [...ex,
+        {
+            name: ziczup,
+            img: atomImg,
+            date: month + '-' + date
+        }
+        ])
+
+        navigation.navigate('가격비교')
+        console.log('최근 본 목록에 추가합니다.')
+
+        return
+
+    }
+
 
     return (
         <BottomSheetModalProvider>
@@ -295,6 +336,7 @@ const BarcodeCheck = () => {
                 <TouchableWithoutFeedback onPress={() => {
 
                     handlePresentModalPress()
+                    setAtomImg('')
 
                 }}>
                     <View style={{ position: 'absolute' }}>
@@ -311,17 +353,27 @@ const BarcodeCheck = () => {
                 onChange={handleSheetChanges}
             >
                 <View style={{ width: '100%', height: '100%' }}>
-                    <View style={{ width: chwidth - 40, marginLeft: 20, borderWidth: 1, borderRadius: 50 }}>
+                    <View style={{ width: chwidth - 40, marginLeft: 20, borderWidth: 1, borderRadius: 10, marginTop: '5%', borderColor: '#bfbfbf' }}>
                         <View style={{ flexDirection: 'row', marginLeft: 10, width: chwidth - 60, marginTop: 10, marginBottom: 10, alignItems: 'center' }}>
                             <Text><Icon style={{ fontSize: 30, color: '#e64d00' }} name="barcode-sharp" color="black"></Icon></Text>
-                            <TextInput placeholder="직접 입력" style={{ height: 40, marginLeft: 10 }}></TextInput>
+                            <TextInput placeholder="직접 입력" onChangeText={(txt) => setZiczup(txt)} value={ziczup} style={{ width: chwidth - 100, height: 40, marginLeft: 10 }}></TextInput>
                         </View>
                     </View>
-                    <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                        <View style={{ width: chwidth - 40, marginLeft: 20, marginBottom: 20, height: 60, backgroundColor: 'orange', borderRadius: 10, alignItems: 'center', justifyContent: 'center', }}>
-                            <Text style={{ color: 'white', fontSize: 18 }}>최저가 비교</Text>
+                    <TouchableWithoutFeedback onPress={() => {
+                        if (ziczup != '') {
+                            setProductN(ziczup)
+                            setTimeout(() => {
+                                savechoi2()
+                                handlePresentModalcancel()
+                            }, 300);
+                        }
+                    }}>
+                        <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+                            <View style={{ width: chwidth - 40, marginLeft: 20, marginBottom: 20, height: 60, backgroundColor: 'orange', borderRadius: 10, alignItems: 'center', justifyContent: 'center', }}>
+                                <Text style={{ color: 'white', fontSize: 18 }}>최저가 비교</Text>
+                            </View>
                         </View>
-                    </View>
+                    </TouchableWithoutFeedback>
                 </View>
             </BottomSheetModal>
         </BottomSheetModalProvider>
