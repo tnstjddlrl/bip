@@ -44,6 +44,8 @@ var checkappboot = 0
 const BarcodeCheck = () => {
     const navigation = useNavigation()
 
+    var testtxt = '';
+
     const camera = useRef()
     const [barcc, setBarcc] = useState('바코드 탐지중!')
 
@@ -241,6 +243,7 @@ const BarcodeCheck = () => {
 
     }
 
+    const tip = useRef(<TextInput></TextInput>)
 
     return (
         <BottomSheetModalProvider>
@@ -356,7 +359,7 @@ const BarcodeCheck = () => {
                     <View style={{ width: chwidth - 40, marginLeft: 20, borderWidth: 1, borderRadius: 10, marginTop: '5%', borderColor: '#bfbfbf' }}>
                         <View style={{ flexDirection: 'row', marginLeft: 10, width: chwidth - 60, marginTop: 10, marginBottom: 10, alignItems: 'center' }}>
                             <Text><Icon style={{ fontSize: 30, color: '#e64d00' }} name="barcode-sharp" color="black"></Icon></Text>
-                            <TextInput placeholder={'직접 입력해주세요.'} onChangeText={(txt) => { setZiczup(txt), console.log(txt) }} value={ziczup} style={{ width: chwidth - 100, height: 40, marginLeft: 10 }}></TextInput>
+                            <TextInput ref={tip} placeholder={'직접 입력해주세요.'} onChangeText={(txt) => { testtxt = txt, setZiczup(testtxt), console.log(testtxt) }} style={{ width: chwidth - 100, height: 40, marginLeft: 10 }}></TextInput>
                         </View>
                     </View>
                     <TouchableWithoutFeedback onPress={() => {
@@ -381,4 +384,4 @@ const BarcodeCheck = () => {
 }
 
 
-export default BarcodeCheck
+export default React.memo(BarcodeCheck)

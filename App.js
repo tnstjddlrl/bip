@@ -66,7 +66,6 @@ export default APP = () => {
           <Stack.Screen name="바코드체크" component={barcodeCheck} />
           <Stack.Screen name="가격비교" component={PriceVs} />
           <Stack.Screen name="찜목록" component={Jjim} />
-          <Stack.Screen name="더보기" component={Plusview} />
 
           <Stack.Screen name="웹뷰" component={Wb} />
           <Stack.Screen name="옥션웹뷰" component={Auction_wb} />
