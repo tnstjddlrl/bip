@@ -356,7 +356,7 @@ const BarcodeCheck = () => {
                     <View style={{ width: chwidth - 40, marginLeft: 20, borderWidth: 1, borderRadius: 10, marginTop: '5%', borderColor: '#bfbfbf' }}>
                         <View style={{ flexDirection: 'row', marginLeft: 10, width: chwidth - 60, marginTop: 10, marginBottom: 10, alignItems: 'center' }}>
                             <Text><Icon style={{ fontSize: 30, color: '#e64d00' }} name="barcode-sharp" color="black"></Icon></Text>
-                            <TextInput placeholder="직접 입력" onChangeText={(txt) => setZiczup(txt)} value={ziczup} style={{ width: chwidth - 100, height: 40, marginLeft: 10 }}></TextInput>
+                            <TextInput placeholder={'직접 입력해주세요.'} onChangeText={(txt) => { setZiczup(txt), console.log(txt) }} value={ziczup} style={{ width: chwidth - 100, height: 40, marginLeft: 10 }}></TextInput>
                         </View>
                     </View>
                     <TouchableWithoutFeedback onPress={() => {
@@ -369,7 +369,7 @@ const BarcodeCheck = () => {
                         }
                     }}>
                         <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-                            <View style={{ width: chwidth - 40, marginLeft: 20, marginBottom: 20, height: 60, backgroundColor: 'orange', borderRadius: 10, alignItems: 'center', justifyContent: 'center', }}>
+                            <View style={{ width: chwidth - 40, marginLeft: 20, marginBottom: 20, height: 60, backgroundColor: ziczup != '' ? 'orange' : 'gray', elevation: ziczup != '' ? 10 : 0, borderRadius: 10, alignItems: 'center', justifyContent: 'center', }}>
                                 <Text style={{ color: 'white', fontSize: 18 }}>최저가 비교</Text>
                             </View>
                         </View>

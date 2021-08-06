@@ -35,6 +35,9 @@ const oost = require('../img/oost_logo.png')
 const auction = require('../img/auction_logo.png')
 const interpark = require('../img/interpark_logo.png')
 const google = require('../img/google.png')
+const newlogo = require('../img/newlogo.png')
+const newlogo2 = require('../img/newlogo2.jpg')
+
 const google_logo = require('../img/google-logo.png')
 
 
@@ -62,17 +65,15 @@ const PriceVs = () => {
 
                 {/* 헤더 시작 */}
                 <View style={{ backgroundColor: '#6E6E6E' }}>
-                    <View style={{ flexDirection: 'row', marginTop: 10, marginBottom: 10 }}>
-                        <View style={{ width: '20%', alignItems: 'center', marginTop: 5 }}>
-                            <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}><Icon style={{ fontSize: 40 }} name="cart-sharp"></Icon></Text>
-                            <Text style={{ fontSize: 20, fontWeight: 'bold', position: 'absolute', top: '8%', left: '45%' }}>P</Text>
-                        </View>
-                        <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20, width: '75%', backgroundColor: '#DCDCDC', alignItems: 'center', justifyContent: 'center' }}>
+                    <View style={{ flexDirection: 'row', marginTop: 10, marginBottom: 10, alignItems: 'center', justifyContent: 'center' }}>
+                        <AutoHeightImage width={60} style={{ maxHeight: 50, marginLeft: 10, marginRight: 10 }} source={newlogo2}></AutoHeightImage>
+                        <View style={{ borderWidth: 1, borderColor: 'gray', borderRadius: 20, flex: 1, backgroundColor: '#DCDCDC', alignItems: 'center', justifyContent: 'center' }}>
                             <TextInput ref={tip} style={{ color: 'black', marginLeft: 10, width: '100%' }} placeholder={'직접 입력해주세요.'} onChangeText={(txt) => { setName(txt), setProductN(txt), console.log(txt) }} value={name}></TextInput>
                             <TouchableWithoutFeedback onPress={() => { setName(''), setProductN('') }}>
                                 <View style={{ position: 'absolute', right: '5%', top: '25%', alignItems: 'center' }}><Icon name='close-circle' color={'gray'} style={{ fontSize: 20 }}></Icon></View>
                             </TouchableWithoutFeedback>
                         </View>
+                        <View style={{ width: 10 }}></View>
                     </View>
                 </View>
 
