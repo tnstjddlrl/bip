@@ -26,6 +26,7 @@ import { productImg, productList, productName } from '../atom/atoms';
 import { useNavigation } from '@react-navigation/native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import AutoHeightImage from 'react-native-auto-height-image';
 
 
 var rnw
@@ -33,6 +34,9 @@ var cbc = false;
 
 const chwidth = Dimensions.get('window').width
 const w33 = chwidth / 3
+
+const newlogo2 = require('../img/newlogo2.jpg')
+
 
 const Wb = () => {
     const navigation = useNavigation()
@@ -121,10 +125,7 @@ const Wb = () => {
                         </View>
                     </TouchableWithoutFeedback>
 
-                    <View style={{ width: '20%', alignItems: 'center' }}>
-                        <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}><Icon style={{ fontSize: 40 }} name="cart-sharp"></Icon></Text>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', position: 'absolute', top: '8%', left: '45%' }}>P</Text>
-                    </View>
+                    <AutoHeightImage width={60} style={{ maxHeight: 50, marginLeft: 10, marginRight: 10 }} source={newlogo2}></AutoHeightImage>
 
                     <TouchableWithoutFeedback onPress={() => {
                         savelist()

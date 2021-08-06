@@ -28,27 +28,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
+import AutoHeightImage from 'react-native-auto-height-image';
 
 const adUnitId = 'ca-app-pub-8664195159890176/9599301349';
 
 
 const chwidth = Dimensions.get('window').width
 
-const testd = [{ name: '펩시 제로 210ml캔', where: '네이버', img: 'http://gs1.koreannet.or.kr/product/info/detail/photoView.do?fileNm=8801056000011_8801056175832_1.jpg&filePath=8801056000011/8801056175832' },
-{ name: '콜라', where: '쿠팡', img: '' },
-{ name: '콜라', where: '11번가', img: '' },
-{ name: '콜라', where: '지마켓', img: '' },
-{ name: '콜라', where: '지마켓', img: '' },
-{ name: '콜라', where: '지마켓', img: '' },
-{ name: '콜라', where: '지마켓', img: '' },
-{ name: '콜라', where: '지마켓', img: '' },
-{ name: '콜라', where: '지마켓', img: '' },
-{ name: '콜라', where: '지마켓', img: '' },
-{ name: '콜라', where: '지마켓', img: '' },
-{ name: '콜라', where: '지마켓', img: '' },
-{ name: '콜라', where: '지마켓', img: '' },
-{ name: '콜라', where: '지마켓', img: '' },
-{ name: '콜라', where: '지마켓', img: '' }]
+const newlogo2 = require('../img/newlogo2.jpg')
+
 
 const JjimItem = (prop) => {
     const navigation = useNavigation()
@@ -266,10 +254,7 @@ const Jjim = () => {
                         </View>
                     </TouchableWithoutFeedback>
 
-                    <View style={{ width: '20%', alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 40, color: 'orange', fontWeight: 'bold' }}><Icon style={{ fontSize: 40 }} name="cart-sharp"></Icon></Text>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold', position: 'absolute', top: '8%', left: '45%' }}>P</Text>
-                    </View>
+                    <AutoHeightImage width={60} style={{ maxHeight: 50, marginLeft: 10, marginRight: 10 }} source={newlogo2}></AutoHeightImage>
 
                     <TouchableWithoutFeedback onPress={() => {
                         if (state == 'jjim')
