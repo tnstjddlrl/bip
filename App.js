@@ -1,14 +1,6 @@
 
 import React, { useRef, useState } from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  Dimensions,
   Linking,
   Alert
 } from 'react-native';
@@ -26,7 +18,6 @@ import barcodeCheck from './src/barcodeCheck';
 import PriceVs from './src/priceVs';
 import Wb from './src/wb';
 import Jjim from './src/jjim';
-import Plusview from './src/plusview';
 import Auction_wb from './wb/auction_wb';
 import Coupang_wb from './wb/coupang_wb';
 import Gmarket_wb from './wb/gmarket_wb';

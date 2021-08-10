@@ -2,12 +2,7 @@ import axios from 'axios';
 import React, { useRef, useState, useEffect, useMemo, useCallback } from 'react';
 const cheerio = require('cheerio');
 import {
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
-    StyleSheet,
     Text,
-    useColorScheme,
     View,
     Dimensions,
     Alert,
