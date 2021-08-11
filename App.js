@@ -23,6 +23,7 @@ import Coupang_wb from './wb/coupang_wb';
 import Gmarket_wb from './wb/gmarket_wb';
 import Interpart_wb from './wb/interpark_wb';
 import Oost_wb from './wb/oost_wb';
+import { useEffect } from 'react';
 
 const Stack = createStackNavigator();
 
@@ -32,23 +33,26 @@ export default APP = () => {
   console.log(VersionCheck.getCurrentBuildNumber()); // 10
   console.log(VersionCheck.getCurrentVersion());     // 0.1.1
 
-  VersionCheck.needUpdate()
-    .then(async res => {
-      console.log(res.isNeeded);    // true
-      if (res.isNeeded) {
-        Alert.alert('앱을 업데이트 해주세요!', '최신 기능을 사용하기 위해선 어플 업데이트가 필요합니다!',
-          [
-            {
-              text: "나중에",
-              onPress: () => console.log("Cancel Pressed"),
-            },
-            { text: "업데이트", onPress: () => Linking.openURL(res.storeUrl) }
-          ]
-        )
-      } else {
-        console.log('최신버전!')
-      }
-    });
+  useEffect(() => {
+    VersionCheck.needUpdate()
+      .then(async res => {
+        console.log(res.isNeeded);    // true
+        if (res.isNeeded) {
+          Alert.alert('앱을 업데이트 해주세요!', '최신 기능을 사용하기 위해선 어플 업데이트가 필요합니다!',
+            [
+              {
+                text: "나중에",
+                onPress: () => console.log("Cancel Pressed"),
+              },
+              { text: "업데이트", onPress: () => Linking.openURL(res.storeUrl) }
+            ]
+          )
+        } else {
+          console.log('최신버전!')
+        }
+      });
+
+  }, [])
 
   return (
     <RecoilRoot>

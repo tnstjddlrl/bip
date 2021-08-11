@@ -169,7 +169,7 @@ const ChoiItem = (prop) => {
                         <Text style={{ fontFamily: 'DoHyeon-Regular' }}>관련 이미지 없음</Text>
                     }
                 </View>
-                <Text numberOfLines={1} style={{ fontWeight: 'bold', marginTop: 3 }}>{prop.name.replace(' ', '')}</Text>
+                <Text numberOfLines={1} style={{ fontWeight: 'bold', marginTop: 3 }}>{prop.name}</Text>
                 <Text>{prop.date}</Text>
 
             </View>

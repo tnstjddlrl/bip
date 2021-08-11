@@ -54,7 +54,7 @@ const PriceVs = () => {
 
     useEffect(() => {
         console.log('넘어온 값 : ' + productN)
-        setName(productN)
+        setName(String(productN))
     }, [])
 
 
