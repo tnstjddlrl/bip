@@ -15,7 +15,6 @@ import {
 if (Text.defaultProps == null) Text.defaultProps = {};
 Text.defaultProps.allowFontScaling = false;
 
-import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilState } from 'recoil';
@@ -23,6 +22,7 @@ import { productImg, productName } from '../atom/atoms';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
 
 const adUnitId = 'ca-app-pub-8664195159890176/9599301349';
 
@@ -52,11 +52,13 @@ const PriceVs = () => {
     const [atomImg, setAtomImg] = useRecoilState(productImg)
     const [productN, setProductN] = useRecoilState(productName)
 
-    useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
         console.log('넘어온 값 : ' + productN)
         setName(String(productN))
-    }, [])
-
+    });
+    useEffect(() => {
+        return () => unsubscribe();
+    });
 
     return (
         <View style={{ width: '100%', height: '100%', backgroundColor: '#FFFAFA' }}>

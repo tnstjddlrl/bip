@@ -169,7 +169,7 @@ const BarcodeCheck = () => {
     function savechoi() {
 
         for (var i = 0; i < atomCurList.length; i++) {
-            if (atomCurList[i].name == productN) {
+            if (atomCurList[i].name == String(productN)) {
                 navigation.navigate('웹뷰')
                 console.log('최근 본 목록에 이미 존재합니다.')
                 return
@@ -189,7 +189,7 @@ const BarcodeCheck = () => {
 
         setatomCurList((ex) => [...ex,
         {
-            name: productN,
+            name: String(productN),
             img: atomImg,
             date: month + '-' + date
         }
