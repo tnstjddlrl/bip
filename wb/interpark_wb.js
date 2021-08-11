@@ -25,6 +25,8 @@ import { useRecoilState } from 'recoil';
 import { productImg, productList, productName } from '../atom/atoms';
 import { useNavigation } from '@react-navigation/native';
 import AutoHeightImage from 'react-native-auto-height-image';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
 
 const adUnitId = 'ca-app-pub-8664195159890176/9599301349';

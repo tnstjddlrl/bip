@@ -27,6 +27,8 @@ import { useNavigation } from '@react-navigation/native';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const adUnitId = 'ca-app-pub-8664195159890176/9599301349';
 
 var rnw

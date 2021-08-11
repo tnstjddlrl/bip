@@ -21,6 +21,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import { WebView } from 'react-native-webview';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { useRecoilState } from 'recoil';
 import { productImg, productList, productName } from '../atom/atoms';
 import { useNavigation } from '@react-navigation/native';

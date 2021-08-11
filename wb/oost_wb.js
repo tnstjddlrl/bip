@@ -24,6 +24,8 @@ import { WebView } from 'react-native-webview';
 import { useRecoilState } from 'recoil';
 import { productImg, productList, productName } from '../atom/atoms';
 import { useNavigation } from '@react-navigation/native';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
 

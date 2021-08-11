@@ -19,6 +19,8 @@ Text.defaultProps.allowFontScaling = false;
 
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import { WebView } from 'react-native-webview';
 
 import { useRecoilState } from 'recoil';
