@@ -52,10 +52,15 @@ const PriceVs = () => {
     const [atomImg, setAtomImg] = useRecoilState(productImg)
     const [productN, setProductN] = useRecoilState(productName)
 
-    useEffect(() => {
+
+
+    const unsubscribe = navigation.addListener('focus', () => {
         console.log('넘어온 값 : ' + productN)
-        setName(productN)
-    }, [])
+        setName(String(productN))
+    });
+    useEffect(() => {
+        return () => unsubscribe();
+    });
 
 
     return (

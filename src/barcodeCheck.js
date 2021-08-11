@@ -73,7 +73,7 @@ const BarcodeCheck = () => {
 
     function barcodeCheck(pp) {
 
-        var regex = /[a-z0-9]|[\[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
+        var regex = /[]|[\[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
 
         axios.get('http://www.koreannet.or.kr/home/hpisSrchGtin.gs1?gtin=' + pp,
         ).then(function (response) {
@@ -98,7 +98,7 @@ const BarcodeCheck = () => {
                 //회사명 미포함
                 console.log('회사명 미포함')
 
-                setProductN(arr.join(' ').replace(regex, ''))
+                setProductN(arr)
             } else {
                 //회사명 포함
                 console.log('회사명 포함 : ' + target)
@@ -106,7 +106,7 @@ const BarcodeCheck = () => {
                 arr.splice(arr.indexOf($('div.productDetailView').find('dd.productDetail').find('dl').find('dd:nth-of-type(2)').text()), 1)
                 // arr.splice(arr.length - 1, 1, arr[arr.length - 1].replace(/ /g, ""))
 
-                setProductN(arr.join(' ').replace(regex, ''))
+                setProductN(arr)
             }
 
         }).catch(function (error) {
@@ -170,7 +170,7 @@ const BarcodeCheck = () => {
 
         for (var i = 0; i < atomCurList.length; i++) {
             if (atomCurList[i].name == productN) {
-                navigation.navigate('가격비교')
+                navigation.navigate('웹뷰')
                 console.log('최근 본 목록에 이미 존재합니다.')
                 return
             }
@@ -195,7 +195,7 @@ const BarcodeCheck = () => {
         }
         ])
 
-        navigation.navigate('가격비교')
+        navigation.navigate('웹뷰')
         console.log('최근 본 목록에 추가합니다.')
 
         return
@@ -206,7 +206,7 @@ const BarcodeCheck = () => {
 
         for (var i = 0; i < atomCurList.length; i++) {
             if (atomCurList[i].name == ziczup) {
-                navigation.navigate('가격비교')
+                navigation.navigate('웹뷰')
                 console.log('최근 본 목록에 이미 존재합니다.')
                 return
             }
@@ -231,7 +231,7 @@ const BarcodeCheck = () => {
         }
         ])
 
-        navigation.navigate('가격비교')
+        navigation.navigate('웹뷰')
         console.log('최근 본 목록에 추가합니다.')
 
         return
