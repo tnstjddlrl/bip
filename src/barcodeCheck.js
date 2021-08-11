@@ -73,7 +73,7 @@ const BarcodeCheck = () => {
 
     function barcodeCheck(pp) {
 
-        var regex = /[a-z0-9]|[\[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
+        var regex = /[]|[\[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]/g;
 
         axios.get('http://www.koreannet.or.kr/home/hpisSrchGtin.gs1?gtin=' + pp,
         ).then(function (response) {
