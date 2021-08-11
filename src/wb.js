@@ -43,6 +43,7 @@ const newlogo2 = require('../img/newlogo2.jpg')
 
 
 const Wb = () => {
+
     const navigation = useNavigation()
 
     const [productN, setProductN] = useRecoilState(productName)
